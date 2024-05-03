@@ -1,0 +1,17 @@
+# Directorios
+build/
+.gradle/
+out/
+target/
+bin/
+.idea/
+
+# Archivos
+*.iml
+*.ipr
+*.iws
+.DS_Store
+.classpath
+.project
+dependencies.lock
+*.log
