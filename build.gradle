@@ -1,0 +1,24 @@
+plugins {
+	id "java"
+	id "application"
+}
+
+version = '0.1.0'
+mainClassName = 'poo.Main'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation fileTree(dir: 'src/main/resources/libs', include: '*.*')
+}
+
+application {
+    // Define the main class for the application.
+    mainClass = 'jgame.gradle.GamePlatform'
+    //mainClass = 'jgame.gradle.AppCamaraHeroe'
+    //mainClass = 'jgame.gradle.Juego02'
+    //mainClass = 'jgame.gradle.JuegoConDB'
+    //mainClass = 'jgame.gradle.LanzadorJuegos'
+}
