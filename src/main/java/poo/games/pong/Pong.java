@@ -1,33 +1,35 @@
 package poo.games.pong;
 
-import com.entropyinteractive.*;
-
+import com.entropyinteractive.JGame;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
-public class Pong extends JGame {
-    public Pong() {
-        super("Pong", 600, 300);
+import javax.imageio.ImageIO;
+
+public class Pong extends JGame{
+
+    BufferedImage img_fondo;
+
+    public Pong(){
+        super("Pong", 800, 600);
+    };
+
+    public void gameStartup(){
         
-    }
+    };
 
-    @Override
-    public void gameStartup() {
+    public void gameUpdate(double var1){
+        
+    };
+ 
+    public void gameDraw(Graphics2D var1){};
+ 
+    public void gameShutdown(){};
 
-    }
+    public void reiniciar_juego(){};
 
-    @Override
-    public void gameUpdate(double v) {
-        System.out.println("game Startup");
 
-    }
-
-    @Override
-    public void gameDraw(Graphics2D graphics2D) {
-        System.out.println("game Startup");
-
-    }
-    @Override
-    public void gameShutdown() {
-        System.out.println("game Startup");
+    public static void main(String[] args) {
+        System.out.println("Pong");
     }
 }

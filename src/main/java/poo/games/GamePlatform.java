@@ -3,81 +3,94 @@ package poo.games;
 import poo.games.circus_charlie.CircusCharlie;
 import poo.games.pong.Pong;
 
-import javax.swing.*;
 import java.awt.*;
-import java.awt.Toolkit;
 import java.awt.event.*;
 
-import java.util.*;
+import javax.swing.*;
+import javax.swing.event.*;
 
-public class GamePlatform extends JFrame {
-    public GamePlatform() {
-        super("StEaM");
-        setSize(600, 400);
+import com.entropyinteractive.*; //las librerias JGame,GameLoop,KeyBoard,Mouse,etc...
 
-        addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent we) {
-                dispose();
-            }
-        });
+public class GamePlatform extends JPanel implements ActionListener {
 
-        Panel mainPanel = new Panel();
+	JGame juego;
+	Thread t;
 
-        Label titleLabel = new Label("Mis Juegos", Label.LEFT);
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
-        mainPanel.add(titleLabel);
+	public GamePlatform() {
+		int filas = 2;
+		int columnas = 0;
+		int separacion = 0;
+		JPanel fondo = new JPanel();
+		JPanel barraSuperior = new JPanel();
+		JPanel barraInferior = new JPanel();
+		JPanel juegosLaterales = new JPanel();
+		JPanel juegosCentral = new JPanel();
 
-        //CIRCUS CHARLIE
-        Panel circusCharlieContainer = new Panel();
-        circusCharlieContainer.setLayout(new BoxLayout(circusCharlieContainer, BoxLayout.Y_AXIS));
-        circusCharlieContainer.setBackground(Color.WHITE);
+		this.add(fondo);
+		fondo.add(barraSuperior);
+		fondo.add(barraInferior);
+		barraInferior.add(juegosLaterales);
+		barraInferior.add(juegosCentral);
+		
+		juegosLaterales.setBackground(Color.BLACK);
+		juegosCentral.setBackground(Color.CYAN);
+		barraInferior.setBackground(Color.GREEN);
+		barraSuperior.setBackground(Color.PINK);
+		
+		barraInferior.setLayout(new GridLayout(1, 2,0,0));
+		juegosLaterales.setLayout(new GridLayout(2,1,10,10));
+		fondo.setLayout(new GridLayout(filas, columnas, separacion, separacion));
+		this.setLayout(new GridLayout(1,0,0,0));
 
-        Label circusCharlieContainerTitleLabel = new Label("Circus Charlie", Label.CENTER);
-        circusCharlieContainerTitleLabel.setFont(new Font("Arial", Font.BOLD, 18));
-        circusCharlieContainer.add(circusCharlieContainerTitleLabel);
+		String[] arrEtiquetas = { "Pong", "CircusCharlie"};
+		JButton boton;
 
-        Image circusCharlieImage = Toolkit.getDefaultToolkit().getImage("circus_charlie.jpg");
-        JLabel circusPicLabel = new JLabel(new ImageIcon(circusCharlieImage));
-        circusCharlieContainer.add(circusPicLabel);
+		for (String etiqueta : arrEtiquetas) {
 
-        Button playButtonCircus = new Button("Jugar");
-        playButtonCircus.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                CircusCharlie circusCharlie = new CircusCharlie();
-            }
-        });
-        circusCharlieContainer.add(playButtonCircus);
+			boton = new JButton(etiqueta);
 
-        //PONG
-        Panel pongContainer = new Panel();
-        pongContainer.setLayout(new BoxLayout(pongContainer, BoxLayout.Y_AXIS));
-        pongContainer.setBackground(Color.WHITE);
+			boton.addActionListener(this);
+			juegosLaterales.add(boton);
+		}
+	}
 
-        Label pongContainerTitleLabel = new Label("Pong", Label.CENTER);
-        pongContainerTitleLabel.setFont(new Font("Arial", Font.BOLD, 18));
-        pongContainer.add(pongContainerTitleLabel);
+	public void actionPerformed(ActionEvent e) {
 
-        Image pongImage = Toolkit.getDefaultToolkit().getImage("pong.jpg");
-        JLabel pongPicLabel = new JLabel(new ImageIcon(pongImage));
-        pongContainer.add(pongPicLabel);
+		if (e.getActionCommand().equals("Pong")) {
+			juego = new Pong();
 
-        Button playButtonPong = new Button("Jugar");
-        playButtonPong.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                Pong pong = new Pong();
-            }
-        });
-        pongContainer.add(playButtonPong);
+			t = new Thread() {
+				public void run() {
+					juego.run(1.0 / 60.0);
+				}
+			};
 
-        mainPanel.add(circusCharlieContainer);
-        mainPanel.add(pongContainer);
+			t.start();
+		}
 
-        add(mainPanel);
-    }
+		if (e.getActionCommand().equals("CircusCharlie")) {
+			juego = new CircusCharlie();
 
-    public static void main(String[] args) {
-        // Crear y mostrar la ventana
-        GamePlatform myGamesWindow = new GamePlatform();
-        myGamesWindow.setVisible(true);
-    }
+			t = new Thread() {
+				public void run() {
+					juego.run(1.0 / 60.0);
+				}
+			};
+
+			t.start();
+		}
+
+	}
+
+	public static void main(String... z) {
+		JFrame f = new JFrame("Steam");
+
+		f.add(new GamePlatform());
+		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		f.pack();
+		f.setVisible(true);
+		f.setLocationRelativeTo(null);
+	}
+
 }
