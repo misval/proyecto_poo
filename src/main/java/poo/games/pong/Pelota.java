@@ -2,34 +2,42 @@ package poo.games.pong;
 
 import poo.games.ObjetoGrafico;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class Pelota extends ObjetoGrafico{
     public Rectangle colision;
 
-    public Pelota(){
-        super(15, 15, 20, 20);
-        colision  = new Rectangle(x,y,ancho,alto);
+    public Pelota(BufferedImage sprite, int alto, int ancho, double x, double y){
+        super(sprite, alto, ancho, x, y);
+        colision  = new Rectangle((int)x,(int)y,ancho,alto);
+        System.out.println(colision.getWidth());
+        System.out.println(colision.getHeight());
     }
 
     
-    public void setX(int nuevaPosicionX){
+    public void setX(double nuevaPosicionX){
         x = nuevaPosicionX;
-        colision.setLocation(x, y);
+        colision.setLocation((int)x, (int)y);
     }
 
-    public void setY(int nuevaPosicionY){
+    public void setY(double nuevaPosicionY){
         y = nuevaPosicionY;
-        colision.setLocation(x, y);
+        colision.setLocation((int)x, (int)y);
     }
 
-    public int getX(){
+    public double getX(){
         return x;
     }
-    public int getY(){
+    public double getY(){
         return y;
     }
 
+    public void update(double delta){
 
+    }
 
+    public void draw(Graphics2D g){
+        g.drawImage(sprite,(int)x,(int)y, ancho, alto,null);
+    }
 
 }
