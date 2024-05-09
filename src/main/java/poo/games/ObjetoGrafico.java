@@ -2,15 +2,14 @@ package poo.games;
 
 import java.awt.image.BufferedImage;
 
-import javax.imageio.ImageIO;
 
 public class ObjetoGrafico {
-    BufferedImage sprite;
+    protected BufferedImage sprite;
     protected int ancho, alto;
-    protected int x, y;
+    protected double x, y;
 
-    public ObjetoGrafico( int alto, int ancho, int x, int y){
-        //this.sprite = sprite;
+    public ObjetoGrafico(BufferedImage sprite, int alto, int ancho, double x, double y){
+        this.sprite = sprite;
         this.alto = alto;
         this.ancho = ancho;
         this.x = x;
