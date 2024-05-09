@@ -11,7 +11,6 @@ public class Pelota extends ObjetoGrafico{
         colision  = new Rectangle(x,y,ancho,alto);
     }
 
-    
     public void setX(int nuevaPosicionX){
         x = nuevaPosicionX;
         colision.setLocation(x, y);

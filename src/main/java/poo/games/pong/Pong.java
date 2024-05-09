@@ -28,7 +28,6 @@ public class Pong extends JGame{
 
     public void reiniciar_juego(){};
 
-
     public static void main(String[] args) {
         System.out.println("Pong");
     }
