@@ -14,12 +14,7 @@ public class Pelota extends ObjetoGrafico{
         System.out.println(colision.getHeight());
     }
 
-<<<<<<< HEAD
-    public void setX(int nuevaPosicionX){
-=======
-    
     public void setX(double nuevaPosicionX){
->>>>>>> b593626d11809e024a57eb0fc98a2ebc78577466
         x = nuevaPosicionX;
         colision.setLocation((int)x, (int)y);
     }

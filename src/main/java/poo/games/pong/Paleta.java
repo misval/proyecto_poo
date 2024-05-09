@@ -23,8 +23,6 @@ public class Paleta extends ObjetoGrafico{
     public double getY(){
         return y;
     }
-<<<<<<< HEAD
-=======
 
     public void update(double delta){
 
@@ -33,6 +31,4 @@ public class Paleta extends ObjetoGrafico{
     public void draw(Graphics2D g){
         g.drawImage(sprite,(int)x,(int)y, ancho, alto,null);
     }
-
->>>>>>> b593626d11809e024a57eb0fc98a2ebc78577466
 }
