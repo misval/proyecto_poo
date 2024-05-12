@@ -5,13 +5,11 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Pelota extends ObjetoGrafico{
-    public Rectangle colision;
+    private Rectangle colision;
 
     public Pelota(BufferedImage sprite, int alto, int ancho, double x, double y){
         super(sprite, alto, ancho, x, y);
         colision  = new Rectangle((int)x,(int)y,ancho,alto);
-        System.out.println(colision.getWidth());
-        System.out.println(colision.getHeight());
     }
 
     public void setX(double nuevaPosicionX){
@@ -37,6 +35,10 @@ public class Pelota extends ObjetoGrafico{
 
     public void draw(Graphics2D g){
         g.drawImage(sprite,(int)x,(int)y, ancho, alto,null);
+    }
+
+    public Rectangle getColision() {
+        return colision;
     }
 
 }
