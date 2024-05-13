@@ -19,6 +19,8 @@ public class GamePlatform extends JFrame implements ActionListener {
 		super("StEaM");
 		setSize(1000, 500);
 
+		FXPlayer f = FXPlayer.BARBAROS;
+
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent we) {
 				dispose();
