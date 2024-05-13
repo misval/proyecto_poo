@@ -16,9 +16,9 @@ import javax.sound.sampled.*;
 
 
 public enum FXPlayer{
-   BARRIL("barril3duendes.wav"),
-   BARBAROS("barbaros.wav"),
-   MONTAPUERCOS("montapuercos.wav");
+   START("Empieza.wav"),
+   REVOTA("paleta.wav"),
+   GANE("punto.wav");
 
 
    public static enum Volume {

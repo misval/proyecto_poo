@@ -22,14 +22,15 @@ public class Pong extends JGame{
     Pelota pelota;
     Fondo fondo;
     BufferedImage lineaRed;
+    FXPlayer SonidoPong;
     final static int J_VELOCIDAD = 250;
     final static int PELOTA_VELOCIDAD = 300;
     int direccionPelota;
     Integer puntosJIzquierda = 0, puntosJDerecha = 0;
 
-    FXPlayer f = FXPlayer.BARBAROS;
+
     public Pong(){
-        super("Pong", 800, 600);
+        super("Pong", 800, 600);FXPlayer.GANE.play();
     };
 
     public void gameStartup(){
@@ -82,6 +83,7 @@ public class Pong extends JGame{
 //      COLISIONES CON LAS PALETAS
 
         if(jIzquierda.getColision().intersects(pelota.getColision())){
+            SonidoPong.REVOTA.play();
             if(direccionPelota == 0){
                 direccionPelota = 1;
             }else{
@@ -90,6 +92,7 @@ public class Pong extends JGame{
         }
 
         if(jDerecha.getColision().intersects(pelota.getColision())){
+            SonidoPong.REVOTA.play();
             if(direccionPelota == 1){
                 direccionPelota = 0;
             }else{
@@ -116,12 +119,13 @@ public class Pong extends JGame{
         }
 
         if (fondo.getBordeIzq().intersects(pelota.getColision())) {
-            f.play();
             puntosJDerecha = reiniciar_juego(puntosJDerecha);
+            SonidoPong.START.play();
         }
 
         if (fondo.getBordeDer().intersects(pelota.getColision())) {
             puntosJIzquierda = reiniciar_juego(puntosJIzquierda);
+            SonidoPong.START.play();
         }
 
 
@@ -142,7 +146,14 @@ public class Pong extends JGame{
         if (keyboard.isKeyPressed(KeyEvent.VK_DOWN) && jDerecha.getColision().intersects(fondo.getBordeInf()) == false){
             jDerecha.setY( jDerecha.getY() + J_VELOCIDAD * delta);
         }
-         
+        if (keyboard.isKeyPressed(KeyEvent.VK_M)){
+            if (FXPlayer.volume == FXPlayer.Volume.LOW)
+                FXPlayer.volume = FXPlayer.Volume.MUTE;
+            else
+                FXPlayer.volume = FXPlayer.Volume.LOW;
+
+        }
+
         LinkedList < KeyEvent > keyEvents = keyboard.getEvents();
         for (KeyEvent event: keyEvents) {
             if ((event.getID() == KeyEvent.KEY_PRESSED) &&
