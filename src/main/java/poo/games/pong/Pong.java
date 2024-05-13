@@ -4,6 +4,7 @@ import poo.games.Fondo;
 
 import com.entropyinteractive.*;
 import java.util.LinkedList;
+import java.util.Properties;
 import java.util.Random;
 
 import java.awt.event.*;
@@ -25,6 +26,7 @@ public class Pong extends JGame{
     final static int PELOTA_VELOCIDAD = 300;
     int direccionPelota;
     Integer puntosJIzquierda = 0, puntosJDerecha = 0;
+
 
     public Pong(){
         super("Pong", 800, 600);
@@ -179,11 +181,5 @@ public class Pong extends JGame{
         pelota.setY(this.getHeight()/2);
         direccionPelota = new Random().nextInt(4);
         return puntuador+1;
-        
     };
-
-    public static void main(String[] args) {
-        Pong pong = new Pong();
-        pong.startup();
-    }
 }

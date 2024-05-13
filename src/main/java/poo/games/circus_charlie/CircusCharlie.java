@@ -9,13 +9,21 @@ public class CircusCharlie extends JGame{
         super("CircusCharlie", 800, 600);
     };
 
-    public void gameStartup(){};
+    public void gameStartup(){
 
-    public void gameUpdate(double var1){};
+    };
+
+    public void gameUpdate(double var1){
+
+    };
  
-    public void gameDraw(Graphics2D var1){};
+    public void gameDraw(Graphics2D var1){
+
+    };
  
-    public void gameShutdown(){};
+    public void gameShutdown(){
+
+    };
 
     public static void main(String[] args) {
         System.out.println("Circus Charlie");
