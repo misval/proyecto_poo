@@ -34,13 +34,13 @@ public class Pong extends JGame{
 
     public void gameStartup(){
         try{
-            BufferedImage imagenJ1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("libs/imagenes/SpriteJ1.jpeg"));
-            BufferedImage imagenJ2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("libs/imagenes/SpriteJ2.jpeg"));
+            BufferedImage imagenJ1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("imagenes/SpriteJ1.jpeg"));
+            BufferedImage imagenJ2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("imagenes/SpriteJ2.jpeg"));
 
-            BufferedImage imagenPelota = ImageIO.read(getClass().getClassLoader().getResourceAsStream("libs/imagenes/SpritePelota.jpeg"));
-            BufferedImage imagenFondo = ImageIO.read(getClass().getClassLoader().getResourceAsStream("libs/imagenes/ImagenNegro.jpeg"));
+            BufferedImage imagenPelota = ImageIO.read(getClass().getClassLoader().getResourceAsStream("imagenes/SpritePelota.jpeg"));
+            BufferedImage imagenFondo = ImageIO.read(getClass().getClassLoader().getResourceAsStream("imagenes/ImagenNegro.jpeg"));
 
-            lineaRed = ImageIO.read(getClass().getClassLoader().getResourceAsStream("libs/imagenes/SpriteRedMedio.jpeg"));
+            lineaRed = ImageIO.read(getClass().getClassLoader().getResourceAsStream("imagenes/SpriteRedMedio.jpeg"));
         
             fondo = new Fondo(imagenFondo, this.getHeight(), this.getWidth(), 0, 30);
             fondo.getBordeInf().setLocation(0, this.getHeight()-15);
@@ -177,7 +177,7 @@ public class Pong extends JGame{
         Log.info(getClass().getSimpleName(), "Shutting down game");
     };
 
-    public Integer reiniciar_juego(Integer puntuador){
+    private Integer reiniciar_juego(Integer puntuador){
         pelota.setX(this.getWidth()/2);
         pelota.setY(this.getHeight()/2);
         direccionPelota = new Random().nextInt(4);
@@ -185,8 +185,4 @@ public class Pong extends JGame{
         
     };
 
-    public static void main(String[] args) {
-        Pong pong = new Pong();
-        pong.startup();
-    }
 }
