@@ -92,7 +92,9 @@ public class GamePlatform extends JFrame implements ActionListener {
 
 		Panel imageCircus = new Panel();
 		Label titleCircus = new Label("Circus Charlie");
-		Button playCircus = new Button("Play");
+		Button playCircus = new Button("Circus Charlie");
+
+		playCircus.addActionListener(this);
 
 		imageCircus.setBackground(Color.BLACK);
 
@@ -108,8 +110,10 @@ public class GamePlatform extends JFrame implements ActionListener {
 
 
 		Panel imagePong = new Panel();
-		Label titlePong = new Label("Circus Charlie");
-		Button playPong = new Button("Play");
+		Label titlePong = new Label("Pong");
+		Button playPong = new Button("Pong");
+
+		playPong.addActionListener(this);
 
 		imagePong.setBackground(Color.BLACK);
 
@@ -158,39 +162,38 @@ public class GamePlatform extends JFrame implements ActionListener {
 
 	}
 
-	public void actionPerformed(ActionEvent e) {};
+//	public void actionPerformed(ActionEvent e) {};
 
-//	public void actionPerformed(ActionEvent e) {
-//
-//		if (e.getActionCommand().equals("Pong")) {
-//			juego = new Pong();
-//
-//			t = new Thread() {
-//				public void run() {
-//					juego.run(1.0 / 60.0);
-//				}
-//			};
-//
-//			t.start();
-//		}
-//
-//		if (e.getActionCommand().equals("CircusCharlie")) {
-//			juego = new CircusCharlie();
-//
-//			t = new Thread() {
-//				public void run() {
-//					juego.run(1.0 / 60.0);
-//				}
-//			};
-//
-//			t.start();
-//		}
-//
-//	}
+	public void actionPerformed(ActionEvent e) {
 
-	public static void main(String... z) {
-		GamePlatform myGamesWindow = new GamePlatform();
-		myGamesWindow.setVisible(true);
+		if (e.getActionCommand().equals("Pong")) {
+			Pong juego = new Pong();
+
+			Thread t = new Thread() {
+				public void run() {
+					juego.run(1.0 / 60.0);
+				}
+			};
+
+			t.start();
+		}
+
+		if (e.getActionCommand().equals("Circus Charlie")) {
+			JGame juego = new CircusCharlie();
+
+			Thread t = new Thread() {
+				public void run() {
+					juego.run(1.0 / 60.0);
+				}
+			};
+
+			t.start();
+		}
+	}
+
+	public static void main(String[] args) {
+		GamePlatform gamesWindow = new GamePlatform();
+		gamesWindow.setVisible(true);
 	}
 
 }

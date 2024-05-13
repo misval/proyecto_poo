@@ -29,9 +29,7 @@ public class Pelota extends ObjetoGrafico{
         return y;
     }
 
-    public void update(double delta){
-
-    }
+    public void update(double delta){}
 
     public void draw(Graphics2D g){
         g.drawImage(sprite,(int)x,(int)y, ancho, alto,null);

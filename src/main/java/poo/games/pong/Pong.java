@@ -12,6 +12,10 @@ import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
 
+// TODO: CREAR OBJETO MOVIBLE
+// TODO: DARLE 2 SEGUNDITOS ANTES DE INICIAR LA PARTIDA
+// TODO: AUMENTAR DIFICULTAD
+
 public class Pong extends JGame{
     Paleta jDerecha, jIzquierda;
     Pelota pelota;
@@ -178,4 +182,8 @@ public class Pong extends JGame{
         
     };
 
+    public static void main(String[] args) {
+        Pong pong = new Pong();
+        pong.startup();
+    }
 }
