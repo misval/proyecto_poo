@@ -1,6 +1,7 @@
 package poo.games.pong;
 
 import poo.games.Fondo;
+import poo.games.FXPlayer;
 
 import com.entropyinteractive.*;
 import java.util.LinkedList;
@@ -26,6 +27,7 @@ public class Pong extends JGame{
     int direccionPelota;
     Integer puntosJIzquierda = 0, puntosJDerecha = 0;
 
+    FXPlayer f = FXPlayer.BARBAROS;
     public Pong(){
         super("Pong", 800, 600);
     };
@@ -114,6 +116,7 @@ public class Pong extends JGame{
         }
 
         if (fondo.getBordeIzq().intersects(pelota.getColision())) {
+            f.play();
             puntosJDerecha = reiniciar_juego(puntosJDerecha);
         }
 
