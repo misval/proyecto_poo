@@ -19,6 +19,7 @@ public class GamePlatform extends JFrame implements ActionListener {
 		super("StEaM");
 		setSize(1000, 500);
 
+
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent we) {
 				dispose();
@@ -167,7 +168,7 @@ public class GamePlatform extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 
 		if (e.getActionCommand().equals("Pong")) {
-			JGame juego = new Pong();
+			Pong juego = new Pong();
 
 			Thread t = new Thread() {
 				public void run() {
@@ -184,7 +185,7 @@ public class GamePlatform extends JFrame implements ActionListener {
 			Thread t = new Thread() {
 				public void run() {
 					juego.run(1.0 / 60.0);
-			}
+				}
 			};
 
 			t.start();
