@@ -18,8 +18,8 @@ import javax.sound.sampled.*;
 public enum FXPlayer{
    START("Empieza.wav"),
    REVOTA("paleta.wav"),
-   GANE("punto.wav");
-
+   GANE("punto.wav"),
+   SOUND_TRACK("SoundTrack.wav");
 
    public static enum Volume {
       MUTE, LOW, MEDIUM, HIGH
@@ -54,14 +54,44 @@ public enum FXPlayer{
    public void play() {
       if (volume != Volume.MUTE) {
          if (!clip.isRunning()){
-         	  clip.setFramePosition(0);
-         		clip.start();
+            clip.setFramePosition(0);
+            clip.start();
          }
-
-
       }
    }
 
+   public void stop(){
+      if (volume != Volume.MUTE) {
+         if (clip.isRunning()){
+            clip.setFramePosition(0);
+            clip.stop();
+         }
+      }
+   }
+   public void loop(){
+      if (volume != Volume.MUTE) {
+         if (!clip.isRunning()){
+            clip.loop(Clip.LOOP_CONTINUOUSLY);
+         }
+      }
+   }
+   public void SwitchingLoop() {
+      if (volume != Volume.MUTE) {
+         if (!clip.isRunning()){
+            clip.loop(Clip.LOOP_CONTINUOUSLY);
+         }else if (clip.isRunning()){
+            clip.setFramePosition(0);
+            clip.stop();
+         }
+      }else SwitchingMUTE();
+   }
+   public void SwitchingMUTE() {
+      if (volume != Volume.MUTE) {
+         volume = Volume.MUTE;
+      }  else {
+         volume = Volume.LOW;
+      }
+   }
 
    static void init() {
       values();

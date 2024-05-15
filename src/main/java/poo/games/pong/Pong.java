@@ -22,7 +22,9 @@ public class Pong extends JGame{
     Pelota pelota;
     Fondo fondo;
     BufferedImage lineaRed;
+
     FXPlayer SonidoPong;
+
     final static int J_VELOCIDAD = 250;
     final static int PELOTA_VELOCIDAD = 300;
     int direccionPelota;
@@ -30,11 +32,16 @@ public class Pong extends JGame{
 
 
     public Pong(){
-        super("Pong", 800, 600);FXPlayer.GANE.play();
+        super("Pong", 800, 600);
     };
 
     public void gameStartup(){
         try{
+
+
+            FXPlayer.SOUND_TRACK.loop();
+
+
             BufferedImage imagenJ1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("imagenes/SpriteJ1.jpeg"));
             BufferedImage imagenJ2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("imagenes/SpriteJ2.jpeg"));
 
@@ -42,7 +49,7 @@ public class Pong extends JGame{
             BufferedImage imagenFondo = ImageIO.read(getClass().getClassLoader().getResourceAsStream("imagenes/ImagenNegro.jpeg"));
 
             lineaRed = ImageIO.read(getClass().getClassLoader().getResourceAsStream("imagenes/SpriteRedMedio.jpeg"));
-        
+
             fondo = new Fondo(imagenFondo, this.getHeight(), this.getWidth(), 0, 30);
             fondo.getBordeInf().setLocation(0, this.getHeight()-15);
             jDerecha = new Paleta(imagenJ1 , (int)(imagenJ2.getHeight()-imagenJ2.getHeight()*0.80), (int)(imagenJ2.getWidth()-imagenJ2.getWidth()*0.75), this.getWidth()-50, (this.getHeight()/2)- 50);
@@ -52,7 +59,7 @@ public class Pong extends JGame{
         catch(Exception e){
             System.out.println(e);
         }
-        
+
         direccionPelota = new Random().nextInt(4);
 
 
@@ -60,7 +67,7 @@ public class Pong extends JGame{
 
     public void gameUpdate(double delta){
         Keyboard keyboard = this.getKeyboard();
-         
+
 //      DIRECCION DE LA PALOTA
 
         if(direccionPelota == 0){// Y = SUBIENDO X = IZQUIERDA
@@ -83,7 +90,7 @@ public class Pong extends JGame{
 //      COLISIONES CON LAS PALETAS
 
         if(jIzquierda.getColision().intersects(pelota.getColision())){
-            SonidoPong.REVOTA.play();
+            FXPlayer.REVOTA.play();
             if(direccionPelota == 0){
                 direccionPelota = 1;
             }else{
@@ -92,7 +99,7 @@ public class Pong extends JGame{
         }
 
         if(jDerecha.getColision().intersects(pelota.getColision())){
-            SonidoPong.REVOTA.play();
+            FXPlayer.REVOTA.play();
             if(direccionPelota == 1){
                 direccionPelota = 0;
             }else{
@@ -120,12 +127,12 @@ public class Pong extends JGame{
 
         if (fondo.getBordeIzq().intersects(pelota.getColision())) {
             puntosJDerecha = reiniciar_juego(puntosJDerecha);
-            SonidoPong.START.play();
+            FXPlayer.START.play();
         }
 
         if (fondo.getBordeDer().intersects(pelota.getColision())) {
             puntosJIzquierda = reiniciar_juego(puntosJIzquierda);
-            SonidoPong.START.play();
+            FXPlayer.START.play();
         }
 
 
@@ -146,18 +153,21 @@ public class Pong extends JGame{
         if (keyboard.isKeyPressed(KeyEvent.VK_DOWN) && jDerecha.getColision().intersects(fondo.getBordeInf()) == false){
             jDerecha.setY( jDerecha.getY() + J_VELOCIDAD * delta);
         }
-        if (keyboard.isKeyPressed(KeyEvent.VK_M)){
-            if (FXPlayer.volume == FXPlayer.Volume.LOW)
-                FXPlayer.volume = FXPlayer.Volume.MUTE;
-            else
-                FXPlayer.volume = FXPlayer.Volume.LOW;
 
-        }
+
 
         LinkedList < KeyEvent > keyEvents = keyboard.getEvents();
-        for (KeyEvent event: keyEvents) {
+        for (KeyEvent event: keyEvents){
+            if ((event.getID() == KeyEvent.KEY_PRESSED) && keyboard.isKeyPressed(KeyEvent.VK_M))
+                FXPlayer.SOUND_TRACK.SwitchingLoop();
+            if ((event.getID() == KeyEvent.KEY_PRESSED) && keyboard.isKeyPressed(KeyEvent.VK_F)){
+                FXPlayer.GANE.SwitchingMUTE();
+                FXPlayer.REVOTA.SwitchingMUTE();
+                FXPlayer.START.SwitchingMUTE();
+            }
+
             if ((event.getID() == KeyEvent.KEY_PRESSED) &&
-                (event.getKeyCode() == KeyEvent.VK_ESCAPE)) {
+                    (event.getKeyCode() == KeyEvent.VK_ESCAPE)) {
                 stop();
             }
         }
@@ -167,14 +177,14 @@ public class Pong extends JGame{
         jDerecha.update(delta);
         pelota.update(delta);
     };
- 
+
     public void gameDraw(Graphics2D g){
         g.drawImage(fondo.getFondo(),0,0,null);
         g.drawImage(lineaRed, (this.getWidth()/2)-(lineaRed.getWidth()/2), 0, null);
 
         g.setColor(Color.white);
         g.setFont(new Font("Retro Gaming", Font.PLAIN, 60));
-        
+
         g.drawString(puntosJIzquierda.toString(),(this.getWidth()/3)-30,100);
         g.drawString(puntosJDerecha.toString(),this.getWidth()-(this.getWidth()/3)-25,100);
 
@@ -183,17 +193,18 @@ public class Pong extends JGame{
         jDerecha.draw(g);
         pelota.draw(g);
     };
- 
+
     public void gameShutdown(){
         Log.info(getClass().getSimpleName(), "Shutting down game");
     };
 
     private Integer reiniciar_juego(Integer puntuador){
+
         pelota.setX(this.getWidth()/2);
         pelota.setY(this.getHeight()/2);
         direccionPelota = new Random().nextInt(4);
         return puntuador+1;
-        
+
     };
 
 }
