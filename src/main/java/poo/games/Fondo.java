@@ -6,12 +6,12 @@ import java.awt.*;
 public class Fondo extends ObjetoGrafico{
     private Rectangle bordeSup, bordeInf, bordeIzq, bordeDer;
 
-    public Fondo(BufferedImage fondo, int alto, int ancho, double x, double y){
-        super(fondo, alto, ancho, x, y);
-        bordeSup = new Rectangle((int)x, (int)y, ancho, 3);
-        bordeInf = new Rectangle((int)x, alto, ancho, 3);
-        bordeIzq = new Rectangle((int)x, (int)y, 3, alto);
-        bordeDer = new Rectangle(ancho, (int)y, 3, alto);
+    public Fondo(BufferedImage sprite, Dimension dimensiones, Point punto){
+        super(sprite, dimensiones, punto);
+        bordeSup = new Rectangle((int)this.getX(), (int)this.getY(), this.getWidth(), 3);
+        bordeInf = new Rectangle((int)this.getX(), this.getHeight(), this.getWidth(), 3);
+        bordeIzq = new Rectangle((int)this.getX(), (int)this.getY(), 3, this.getHeight());
+        bordeDer = new Rectangle(this.getWidth(), (int)this.getY(), 3, this.getHeight());
     }
 
     public Rectangle getBordeSup() {
