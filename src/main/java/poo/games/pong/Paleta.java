@@ -6,33 +6,24 @@ import java.awt.image.BufferedImage;
 import poo.games.ObjetoGrafico;
 
 public class Paleta extends ObjetoGrafico{
-    private Rectangle colision;
 
-    public Paleta(BufferedImage sprite, int alto, int ancho, double x, double y){
-        super(sprite, alto, ancho, x, y);
-        colision  = new Rectangle((int)this.x,(int)this.y,this.ancho,this.alto);
+    public Paleta(BufferedImage sprite, Dimension dimensiones, Point punto){
+        super(sprite, dimensiones, punto);
     }
 
-    public void setY(double nuevaPosicion){
-        this.y = nuevaPosicion;
-        colision.setLocation((int)x, (int)y);
+    public void moverseArriba(double desplazamiento){
+        this.setY(this.getY() - desplazamiento);
+        this.getColision().setLocation((int)this.getX(), (int)this.getY());
     }
 
-    public double getY(){
-        return y;
+    public void moverseAbajo(double desplazamiento){
+        this.setY(this.getY() + desplazamiento);
+        this.getColision().setLocation((int)this.getX(), (int)this.getY());
     }
 
-    public void update(double delta){
-
-    }
+    public void update(double delta){}
 
     public void draw(Graphics2D g){
-        g.drawImage(sprite,(int)x,(int)y, ancho, alto,null);
-    }
-
-    public Rectangle getColision() {
-        return colision;
-    }
-
-    
+        g.drawImage(sprite, (int)this.getX(), (int)this.getY(), this.getWidth(), this.getHeight(),null);
+    }  
 }

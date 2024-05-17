@@ -5,38 +5,35 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Pelota extends ObjetoGrafico{
-    private Rectangle colision;
 
-    public Pelota(BufferedImage sprite, int alto, int ancho, double x, double y){
-        super(sprite, alto, ancho, x, y);
-        colision  = new Rectangle((int)x,(int)y,ancho,alto);
+    public Pelota(BufferedImage sprite, Dimension dimensiones, Point punto){
+        super(sprite, dimensiones, punto);
     }
 
-    public void setX(double nuevaPosicionX){
-        x = nuevaPosicionX;
-        colision.setLocation((int)x, (int)y);
+    public void moverseIzquierda(double desplazamiento){
+        this.setX(this.getX() - desplazamiento);
+        this.getColision().setLocation((int)this.getX(), (int)this.getY());
     }
 
-    public void setY(double nuevaPosicionY){
-        y = nuevaPosicionY;
-        colision.setLocation((int)x, (int)y);
+    public void moverseDerecha(double desplazamiento){
+        this.setX(this.getX() + desplazamiento);
+        this.getColision().setLocation((int)this.getX(), (int)this.getY());
     }
 
-    public double getX(){
-        return x;
+    public void moverseArriba(double desplazamiento){
+        this.setY(this.getY() - desplazamiento);
+        this.getColision().setLocation((int)this.getX(), (int)this.getY());
     }
-    public double getY(){
-        return y;
+
+    public void moverseAbajo(double desplazamiento){
+        this.setY(this.getY() + desplazamiento);
+        this.getColision().setLocation((int)this.getX(), (int)this.getY());
     }
 
     public void update(double delta){}
 
     public void draw(Graphics2D g){
-        g.drawImage(sprite,(int)x,(int)y, ancho, alto,null);
-    }
-
-    public Rectangle getColision() {
-        return colision;
-    }
+        g.drawImage(sprite, (int)this.getX(), (int)this.getY(), this.getWidth(), this.getHeight(),null);
+    } 
 
 }
