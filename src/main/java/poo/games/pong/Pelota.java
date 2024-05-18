@@ -2,11 +2,14 @@ package poo.games.pong;
 
 import poo.games.ObjetoGrafico;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 public class Pelota extends ObjetoGrafico{
 
-    public Pelota(BufferedImage sprite, Dimension dimensiones, Point punto){
+    public Pelota(String sprite){
+        super(sprite);
+    }
+
+    public Pelota(String sprite, Dimension dimensiones, Point punto){
         super(sprite, dimensiones, punto);
     }
 
