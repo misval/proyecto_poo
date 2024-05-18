@@ -12,7 +12,7 @@ public class Camara {
     	this.y=y;
     }
 
-	public void seguirPersonaje(Personnaje obj){
+	public void seguirPersonaje(Personaje obj){
 		Mundo m=Mundo.getInstance();
 		//this.x = -b.getX()+(m.getWidth()/8);
 		this.x = -obj.getX()+resX/2;
