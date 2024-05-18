@@ -1,4 +1,4 @@
-package jgame.gradle;
+package poo.games;
 
 
 public class Camara {
@@ -12,7 +12,7 @@ public class Camara {
     	this.y=y;
     }
 
-	public void seguirPersonaje(Heroe obj){
+	public void seguirPersonaje(Personnaje obj){
 		Mundo m=Mundo.getInstance();
 		//this.x = -b.getX()+(m.getWidth()/8);
 		this.x = -obj.getX()+resX/2;
