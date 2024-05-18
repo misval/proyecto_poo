@@ -5,6 +5,8 @@ import java.awt.Rectangle;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 
+import javax.imageio.ImageIO;
+
 
 public abstract class ObjetoGrafico {
     protected BufferedImage sprite;
@@ -12,11 +14,24 @@ public abstract class ObjetoGrafico {
     protected Point punto;
     protected Rectangle colision;
 
-    public ObjetoGrafico(BufferedImage sprite, Dimension dimensiones, Point punto){
-        this.sprite = sprite;
-        this.dimensiones = dimensiones;
-        this.punto = punto;
-        colision  = new Rectangle(punto, dimensiones);
+    public ObjetoGrafico(String sprite){
+        try {
+            this.sprite = ImageIO.read(getClass().getClassLoader().getResourceAsStream(sprite));;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public ObjetoGrafico(String sprite, Dimension dimensiones, Point punto){
+        try {
+            this.sprite = ImageIO.read(getClass().getClassLoader().getResourceAsStream(sprite));;
+            this.dimensiones = dimensiones;
+            this.punto = punto;
+            colision  = new Rectangle(punto, dimensiones);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
     }
 
     public Rectangle getColision(){
@@ -31,8 +46,20 @@ public abstract class ObjetoGrafico {
         return sprite;
     }
 
-    public void setSprite(BufferedImage sprite) {
-        this.sprite = sprite;
+    public void setSprite(String sprite) {
+        try {
+            this.sprite = ImageIO.read(getClass().getClassLoader().getResourceAsStream(sprite));
+        } catch (Exception e) {
+            System.out.println(e);
+        }  
+    }
+
+    public void setDimesiones(Dimension dimensiones){
+        this.dimensiones = dimensiones;
+    }
+
+    public void setPunto(Point punto){
+        this.punto = punto;
     }
 
     public int getWidth() {
