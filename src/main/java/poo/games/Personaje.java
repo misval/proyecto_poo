@@ -12,7 +12,7 @@ import java.net.*; //nuevo para sonido
 //import processing.core.*;
 ///   http://jsfiddle.net/LyM87/
 /// https://stackoverflow.com/questions/37758061/rotate-a-buffered-image-in-java/37758533
-public class Personaje extends ObjetoGrafico implements ObjetoMovible {
+public class Personaje extends ObjetoGrafico{
 
 	private boolean onGround = false;
 	private boolean saltando=false;
@@ -88,8 +88,7 @@ public class Personaje extends ObjetoGrafico implements ObjetoMovible {
 	public void update(double delta) {
 
 		velocityY += gravity;
-    	positionY += velocityY;
-    	positionX += velocityX;
+    	punto.setLocation(punto.getX() + velocityX, punto.getY() + velocityY);
 
 
 		angulo=(angulo % 360);
@@ -97,18 +96,18 @@ public class Personaje extends ObjetoGrafico implements ObjetoMovible {
 		Mundo m = Mundo.getInstance();
 
 		/* Rebota contra los margenes X del mundo */
-		if ((positionX+ (this.getWidth())) > m.getWidth()) {
+		if ((punto.getX()+ (this.getWidth())) > m.getWidth()) {
 			//positionX = m.getWidth() - (this.getWidth());
 			velocityX *= -1 ;
 		}
 		/* Rebota contra la X=0 del mundo */
-		if ((positionX) < 0) {
+		if ((punto.getX()) < 0) {
 			velocityX *= -1  ;
-			positionX = 0;
+			punto.setLocation(0, punto.getY());
 		}
 
-	    if(positionY > POSICION_Y_PISO){
-	        positionY = POSICION_Y_PISO;
+	    if(punto.getY() > POSICION_Y_PISO){
+	        punto.setLocation(punto.getX(), POSICION_Y_PISO);
 	        velocityY = 0.0;
 	        onGround = true;
 	        angulo=0;
@@ -143,7 +142,7 @@ public class Personaje extends ObjetoGrafico implements ObjetoMovible {
 		AffineTransform old = g2.getTransform();
 		g2.transform(transform);
 
-		g2.drawImage(imagen,(int) this.positionX,(int) this.positionY,null);
+		g2.drawImage(sprite,(int) this.getX(),(int) this.getY(),null);
 
 		g2.setTransform(old);
   	}
