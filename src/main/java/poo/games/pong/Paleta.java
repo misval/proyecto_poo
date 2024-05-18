@@ -1,13 +1,16 @@
 package poo.games.pong;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 import poo.games.ObjetoGrafico;
 
 public class Paleta extends ObjetoGrafico{
 
-    public Paleta(BufferedImage sprite, Dimension dimensiones, Point punto){
+    public Paleta(String sprite){
+        super(sprite);
+    }
+
+    public Paleta(String sprite, Dimension dimensiones, Point punto){
         super(sprite, dimensiones, punto);
     }
 

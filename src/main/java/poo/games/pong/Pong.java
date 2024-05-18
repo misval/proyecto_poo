@@ -42,28 +42,34 @@ public class Pong extends JGame{
 
             FXPlayer.SOUND_TRACK.loop();
 
-            BufferedImage imagenJ1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("imagenes/SpriteJ1.jpeg"));
-            BufferedImage imagenJ2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("imagenes/SpriteJ2.jpeg"));
+            String imagenJ1 = "imagenes/SpriteJ1.jpeg";
+            String imagenJ2 = "imagenes/SpriteJ2.jpeg";
 
-            BufferedImage imagenPelota = ImageIO.read(getClass().getClassLoader().getResourceAsStream("imagenes/SpritePelota.jpeg"));
-            BufferedImage imagenFondo = ImageIO.read(getClass().getClassLoader().getResourceAsStream("imagenes/ImagenNegro.jpeg"));
+            String imagenPelota = "imagenes/SpritePelota.jpeg";
+            String imagenFondo = "imagenes/ImagenNegro.jpeg";
 
             lineaRed = ImageIO.read(getClass().getClassLoader().getResourceAsStream("imagenes/SpriteRedMedio.jpeg"));
 
             //Se crea la Paleta derecha
-            Dimension tamanio = new Dimension((int)(imagenJ2.getWidth()-imagenJ2.getWidth()*0.75), (int)(imagenJ2.getHeight()-imagenJ2.getHeight()*0.80));
+            jDerecha = new Paleta(imagenJ2);
+            Dimension tamanio = new Dimension((int)(jDerecha.getSprite().getWidth()-jDerecha.getSprite().getWidth()*0.75), (int)(jDerecha.getSprite().getHeight()-jDerecha.getSprite().getHeight()*0.80));
             Point punto = new Point(this.getWidth()-50, (this.getHeight()/2)- 50);
-            jDerecha = new Paleta(imagenJ1 , tamanio, punto);
+            jDerecha.setDimesiones(tamanio);
+            jDerecha.setPunto(punto);
 
             //Se crea la Paleta izquierda
-            tamanio = new Dimension((int)(imagenJ1.getWidth()-imagenJ1.getWidth()*0.75), (int)(imagenJ1.getHeight()-imagenJ1.getHeight()*0.80));
+            jIzquierda = new Paleta(imagenJ1);
+            tamanio = new Dimension((int)(jIzquierda.getSprite().getWidth()-jIzquierda.getSprite().getWidth()*0.75), (int)(jIzquierda.getSprite().getHeight()-jIzquierda.getSprite().getHeight()*0.80));
             punto = new Point(this.getWidth()-(this.getWidth()-25), (this.getHeight()/2)-50);
-            jIzquierda = new Paleta(imagenJ1, tamanio, punto);
+            jIzquierda.setDimesiones(tamanio);
+            jIzquierda.setPunto(punto);
 
             //Se crea la Pelota
-            tamanio = new Dimension( (int)(imagenPelota.getWidth()-imagenPelota.getWidth()*0.80), (int)(imagenPelota.getHeight()-imagenPelota.getHeight()*0.80));
+            pelota = new Pelota(imagenPelota);
+            tamanio = new Dimension( (int)(pelota.getSprite().getWidth()-pelota.getSprite().getWidth()*0.80), (int)(pelota.getSprite().getHeight()-pelota.getSprite().getHeight()*0.80));
             punto = new Point( this.getWidth()/2, this.getHeight()/2);
-            pelota = new Pelota(imagenPelota, tamanio, punto);
+            pelota.setDimesiones(tamanio);
+            pelota.setPunto(punto);
 
             //Se crea el Fondo
             tamanio = new Dimension(this.getWidth(), this.getHeight());
