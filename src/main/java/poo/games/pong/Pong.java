@@ -56,6 +56,7 @@ public class Pong extends JGame{
             Point punto = new Point(this.getWidth()-50, (this.getHeight()/2)- 50);
             jDerecha.setDimesiones(tamanio);
             jDerecha.setPunto(punto);
+            jDerecha.setColision(new Rectangle(punto, tamanio));
 
             //Se crea la Paleta izquierda
             jIzquierda = new Paleta(imagenJ1);
@@ -63,6 +64,7 @@ public class Pong extends JGame{
             punto = new Point(this.getWidth()-(this.getWidth()-25), (this.getHeight()/2)-50);
             jIzquierda.setDimesiones(tamanio);
             jIzquierda.setPunto(punto);
+            jIzquierda.setColision(new Rectangle(punto, tamanio));
 
             //Se crea la Pelota
             pelota = new Pelota(imagenPelota);
@@ -70,6 +72,7 @@ public class Pong extends JGame{
             punto = new Point( this.getWidth()/2, this.getHeight()/2);
             pelota.setDimesiones(tamanio);
             pelota.setPunto(punto);
+            pelota.setColision(new Rectangle(punto, tamanio));
 
             //Se crea el Fondo
             tamanio = new Dimension(this.getWidth(), this.getHeight());
