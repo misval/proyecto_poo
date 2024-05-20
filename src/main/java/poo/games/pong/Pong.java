@@ -68,7 +68,7 @@ public class Pong extends JGame{
 
             //Se crea la Pelota
             pelota = new Pelota(imagenPelota);
-            tamanio = new Dimension( (int)(pelota.getSprite().getWidth()-pelota.getSprite().getWidth()*0.80), (int)(pelota.getSprite().getHeight()-pelota.getSprite().getHeight()*0.80));
+            tamanio = new Dimension((int)(pelota.getSprite().getWidth()-pelota.getSprite().getWidth()*0.80), (int)(pelota.getSprite().getHeight()-pelota.getSprite().getHeight()*0.80));
             punto = new Point( this.getWidth()/2, this.getHeight()/2);
             pelota.setDimesiones(tamanio);
             pelota.setPunto(punto);
