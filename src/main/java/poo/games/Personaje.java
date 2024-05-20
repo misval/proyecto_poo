@@ -12,7 +12,7 @@ import java.net.*; //nuevo para sonido
 //import processing.core.*;
 ///   http://jsfiddle.net/LyM87/
 /// https://stackoverflow.com/questions/37758061/rotate-a-buffered-image-in-java/37758533
-public class Personaje extends ObjetoGrafico{
+public class Personaje extends ObjetoGrafico {
 
 	private boolean onGround = false;
 	private boolean saltando=false;
@@ -39,23 +39,19 @@ public class Personaje extends ObjetoGrafico{
 	public final int POSICION_Y_PISO=360;
 
 	public Personaje(String filename){
-			super(filename, new Dimension(), new Point());
-
+		super(filename);
 	}
 
 
 	public void jump() {
-
 		if (onGround) {
 			    velocityY = -12.0;
         		onGround = false;
-			 
 		}
-		 
+
 	}
 
 	public void jumpEnd() {
-
 		if(velocityY < -6.0){
 			velocityY = -6.0;
 		}
@@ -86,10 +82,8 @@ public class Personaje extends ObjetoGrafico{
 	}
 
 	public void update(double delta) {
-
 		velocityY += gravity;
     	punto.setLocation(punto.getX() + velocityX, punto.getY() + velocityY);
-
 
 		angulo=(angulo % 360);
 
@@ -117,18 +111,13 @@ public class Personaje extends ObjetoGrafico{
 			//mientras este saltando
 	    	this.rotarImagenGrados(10 * direccionAngulo);
 	    }
-     
+
 	}
 
 
 	private void rotarImagenGrados(double ang){
-			
-			
 			angulo +=ang;
 			//double rads = Math.toRadians(angulo);
-			 
-		 
-
 	}
 
 

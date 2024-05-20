@@ -1,8 +1,6 @@
 package poo.games;
 
-import java.awt.Dimension;
-import java.awt.Rectangle;
-import java.awt.Point;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
@@ -16,7 +14,9 @@ public abstract class ObjetoGrafico {
 
     public ObjetoGrafico(String sprite){
         try {
-            this.sprite = ImageIO.read(getClass().getClassLoader().getResourceAsStream(sprite));;
+            this.sprite = ImageIO.read(getClass().getClassLoader().getResourceAsStream(sprite));
+            this.dimensiones = new Dimension(this.sprite.getWidth(), this.sprite.getHeight());
+            this.punto = new Point(0,0);
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -24,10 +24,10 @@ public abstract class ObjetoGrafico {
 
     public ObjetoGrafico(String sprite, Dimension dimensiones, Point punto){
         try {
-            this.sprite = ImageIO.read(getClass().getClassLoader().getResourceAsStream(sprite));;
+            this.sprite = ImageIO.read(getClass().getClassLoader().getResourceAsStream(sprite));
             this.dimensiones = dimensiones;
             this.punto = punto;
-            colision  = new Rectangle(punto, dimensiones);
+            colision = new Rectangle(punto, dimensiones);
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -52,6 +52,10 @@ public abstract class ObjetoGrafico {
         } catch (Exception e) {
             System.out.println(e);
         }  
+    }
+
+    public void display(Graphics2D g) {
+        g.drawImage(sprite, (int) this.getX(), (int) this.getY(), null);
     }
 
     public void setDimesiones(Dimension dimensiones){

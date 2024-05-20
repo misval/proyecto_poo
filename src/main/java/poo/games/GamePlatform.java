@@ -180,7 +180,7 @@ public class GamePlatform extends JFrame implements ActionListener {
 		}
 
 		if (e.getActionCommand().equals("Circus Charlie")) {
-			JGame juego = new CircusCharlie();
+			CircusCharlie juego = new CircusCharlie();
 
 			Thread t = new Thread() {
 				public void run() {
