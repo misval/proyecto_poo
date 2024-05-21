@@ -1,5 +1,5 @@
 package poo.games.circus_charlie;
 
-public class Charlie {
+public class Cuerda {
     
 }

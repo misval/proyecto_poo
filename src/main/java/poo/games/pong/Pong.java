@@ -11,6 +11,8 @@ import java.awt.event.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+import java.awt.Point;
+
 import javax.imageio.ImageIO;
 
 // TODO: CREAR OBJETO MOVIBLE
@@ -38,30 +40,51 @@ public class Pong extends JGame{
     public void gameStartup(){
         try{
 
-
             FXPlayer.SOUND_TRACK.loop();
 
+            String imagenJ1 = "imagenes/SpriteJ1.jpeg";
+            String imagenJ2 = "imagenes/SpriteJ2.jpeg";
 
-            BufferedImage imagenJ1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("imagenes/SpriteJ1.jpeg"));
-            BufferedImage imagenJ2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("imagenes/SpriteJ2.jpeg"));
-
-            BufferedImage imagenPelota = ImageIO.read(getClass().getClassLoader().getResourceAsStream("imagenes/SpritePelota.jpeg"));
-            BufferedImage imagenFondo = ImageIO.read(getClass().getClassLoader().getResourceAsStream("imagenes/ImagenNegro.jpeg"));
+            String imagenPelota = "imagenes/SpritePelota.jpeg";
+            String imagenFondo = "imagenes/ImagenNegro.jpeg";
 
             lineaRed = ImageIO.read(getClass().getClassLoader().getResourceAsStream("imagenes/SpriteRedMedio.jpeg"));
 
-            fondo = new Fondo(imagenFondo, this.getHeight(), this.getWidth(), 0, 30);
+            //Se crea la Paleta derecha
+            jDerecha = new Paleta(imagenJ2);
+            Dimension tamanio = new Dimension((int)(jDerecha.getSprite().getWidth()-jDerecha.getSprite().getWidth()*0.75), (int)(jDerecha.getSprite().getHeight()-jDerecha.getSprite().getHeight()*0.80));
+            Point punto = new Point(this.getWidth()-50, (this.getHeight()/2)- 50);
+            jDerecha.setDimesiones(tamanio);
+            jDerecha.setPunto(punto);
+            jDerecha.setColision(new Rectangle(punto, tamanio));
+
+            //Se crea la Paleta izquierda
+            jIzquierda = new Paleta(imagenJ1);
+            tamanio = new Dimension((int)(jIzquierda.getSprite().getWidth()-jIzquierda.getSprite().getWidth()*0.75), (int)(jIzquierda.getSprite().getHeight()-jIzquierda.getSprite().getHeight()*0.80));
+            punto = new Point(this.getWidth()-(this.getWidth()-25), (this.getHeight()/2)-50);
+            jIzquierda.setDimesiones(tamanio);
+            jIzquierda.setPunto(punto);
+            jIzquierda.setColision(new Rectangle(punto, tamanio));
+
+            //Se crea la Pelota
+            pelota = new Pelota(imagenPelota);
+            tamanio = new Dimension((int)(pelota.getSprite().getWidth()-pelota.getSprite().getWidth()*0.80), (int)(pelota.getSprite().getHeight()-pelota.getSprite().getHeight()*0.80));
+            punto = new Point( this.getWidth()/2, this.getHeight()/2);
+            pelota.setDimesiones(tamanio);
+            pelota.setPunto(punto);
+            pelota.setColision(new Rectangle(punto, tamanio));
+
+            //Se crea el Fondo
+            tamanio = new Dimension(this.getWidth(), this.getHeight());
+            punto = new Point(0, 30);
+            fondo = new Fondo(imagenFondo, tamanio, punto);
             fondo.getBordeInf().setLocation(0, this.getHeight()-15);
-            jDerecha = new Paleta(imagenJ1 , (int)(imagenJ2.getHeight()-imagenJ2.getHeight()*0.80), (int)(imagenJ2.getWidth()-imagenJ2.getWidth()*0.75), this.getWidth()-50, (this.getHeight()/2)- 50);
-            jIzquierda = new Paleta(imagenJ1,(int)(imagenJ1.getHeight()-imagenJ1.getHeight()*0.80), (int)(imagenJ1.getWidth()-imagenJ1.getWidth()*0.75), this.getWidth()-(this.getWidth()-25), (this.getHeight()/2)-50);
-            pelota = new Pelota(imagenPelota, (int)(imagenPelota.getHeight()-imagenPelota.getHeight()*0.80), (int)(imagenPelota.getWidth()-imagenPelota.getWidth()*0.80), this.getWidth()/2, this.getHeight()/2);
         }
         catch(Exception e){
             System.out.println(e);
         }
 
         direccionPelota = new Random().nextInt(4);
-
 
     };
 
@@ -71,20 +94,20 @@ public class Pong extends JGame{
 //      DIRECCION DE LA PALOTA
 
         if(direccionPelota == 0){// Y = SUBIENDO X = IZQUIERDA
-            pelota.setX( pelota.getX() - PELOTA_VELOCIDAD * delta);
-            pelota.setY( pelota.getY() - PELOTA_VELOCIDAD * delta);
+            pelota.moverseIzquierda(PELOTA_VELOCIDAD * delta);
+            pelota.moverseArriba(PELOTA_VELOCIDAD * delta);
 
         }else if(direccionPelota == 1){// Y = SUBIENDO X = DERECHA
-            pelota.setX( pelota.getX() + PELOTA_VELOCIDAD * delta);
-            pelota.setY( pelota.getY() - PELOTA_VELOCIDAD * delta);
+            pelota.moverseDerecha(PELOTA_VELOCIDAD * delta);
+            pelota.moverseArriba(PELOTA_VELOCIDAD * delta);
 
         }else if(direccionPelota == 2){// Y = BAJANDO X = IZQUIERDA
-            pelota.setX( pelota.getX() - PELOTA_VELOCIDAD * delta);
-            pelota.setY( pelota.getY() + PELOTA_VELOCIDAD * delta);
+            pelota.moverseIzquierda(PELOTA_VELOCIDAD * delta);
+            pelota.moverseAbajo(PELOTA_VELOCIDAD * delta);
 
         }else if(direccionPelota == 3){// Y = BAJANDO X = DERECHA
-            pelota.setX( pelota.getX() + PELOTA_VELOCIDAD * delta);
-            pelota.setY( pelota.getY() + PELOTA_VELOCIDAD * delta);
+            pelota.moverseDerecha(PELOTA_VELOCIDAD * delta);
+            pelota.moverseAbajo(PELOTA_VELOCIDAD * delta);
         }
 
 //      COLISIONES CON LAS PALETAS
@@ -139,19 +162,19 @@ public class Pong extends JGame{
 //      MOVIMIENTOS DE LAS PALETAS
 
         if (keyboard.isKeyPressed(KeyEvent.VK_W) && jIzquierda.getColision().intersects(fondo.getBordeSup()) == false){
-            jIzquierda.setY( jIzquierda.getY() - J_VELOCIDAD * delta);
+            jIzquierda.moverseArriba(J_VELOCIDAD * delta);
         }
 
         if (keyboard.isKeyPressed(KeyEvent.VK_S) && jIzquierda.getColision().intersects(fondo.getBordeInf()) == false){
-            jIzquierda.setY( jIzquierda.getY() + J_VELOCIDAD * delta);
+            jIzquierda.moverseAbajo(J_VELOCIDAD * delta);
         }
 
         if (keyboard.isKeyPressed(KeyEvent.VK_UP) && jDerecha.getColision().intersects(fondo.getBordeSup()) == false){
-            jDerecha.setY( jDerecha.getY() - J_VELOCIDAD * delta);
+            jDerecha.moverseArriba(J_VELOCIDAD * delta);
         }
 
         if (keyboard.isKeyPressed(KeyEvent.VK_DOWN) && jDerecha.getColision().intersects(fondo.getBordeInf()) == false){
-            jDerecha.setY( jDerecha.getY() + J_VELOCIDAD * delta);
+            jDerecha.moverseAbajo(J_VELOCIDAD * delta);
         }
 
 
