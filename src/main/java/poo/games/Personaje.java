@@ -38,8 +38,8 @@ public class Personaje extends ObjetoGrafico {
 	public final int POSICION_Y_PISO=335;
 
 	public Personaje(String filename){
+
 		super(filename);
-		estadoActual = ESTADO_QUIETO;
 	}
 
 	public void jump() {
