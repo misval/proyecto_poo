@@ -20,9 +20,8 @@ public class CircusCharlie extends JGame{
 
 //        nivel = new Nivel1();
         nivel = new Nivel3();
-        nivel.getCharlie().quieto();
+//        nivel.getCharlie().quieto();
     };
-
 
     public void gameStartup(){
 //        if() {
@@ -32,6 +31,7 @@ public class CircusCharlie extends JGame{
 
     public void gameUpdate(double var1){
         Keyboard keyboard = this.getKeyboard();
+
 
         Personaje heroe = nivel.getCharlie();
         Camara cam = nivel.getCam();
@@ -46,11 +46,7 @@ public class CircusCharlie extends JGame{
         // check the list of key events for a pressed escape key
         LinkedList < KeyEvent > keyEvents = keyboard.getEvents();
         for (KeyEvent event: keyEvents) {
-            if ((event.getID() == KeyEvent.KEY_RELEASED)){
-                heroe.quieto();
-            }
-            if ((event.getID() == KeyEvent.KEY_PRESSED) &&
-                    (event.getKeyCode() == KeyEvent.VK_UP)) {
+            if ((event.getKeyCode() == KeyEvent.VK_UP)) {
                 heroe.jump();
             }
             if ((event.getID() == KeyEvent.KEY_RELEASED) &&
@@ -64,9 +60,6 @@ public class CircusCharlie extends JGame{
         }
 
         heroe.update(var1);
-
-//        heroe.applyForce(gravedad);
-
         cam.seguirPersonaje(heroe);
     };
  
@@ -74,7 +67,9 @@ public class CircusCharlie extends JGame{
         nivel.draw(var1);
     };
  
-    public void gameShutdown(){};
+    public void gameShutdown(){
+
+    };
 
     public static void main(String[] args) {
         System.out.println("Circus Charlie");

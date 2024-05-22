@@ -15,18 +15,17 @@ import java.net.*; //nuevo para sonido
 public class Personaje extends ObjetoGrafico {
 
 	private boolean onGround = false;
-	private boolean saltando=false;
- 
 
 	final int DIRECCION_DERECHA = 0;
 	final int DIRECCION_IZQUIERDA = 1;
 
 	final int ESTADO_QUIETO = -1;
 	final int ESTADO_CAMINANDO = 0;
-	final int ESTADO_ARROJANDO_GRANADA = 4;
-	final int ESTADO_MURIENDO = 5;
+	final int ESTADO_SALTANDO = 1;
+
 	int direccionActual;
 	int estadoActual;
+	double tempVelocity;
 
 
 	protected double velocityX = 4.0;
@@ -36,105 +35,93 @@ public class Personaje extends ObjetoGrafico {
 
 	protected int direccionAngulo= 1;
 
-	public final int POSICION_Y_PISO=360;
+	public final int POSICION_Y_PISO=335;
 
 	public Personaje(String filename){
 		super(filename);
+		estadoActual = ESTADO_QUIETO;
 	}
-
 
 	public void jump() {
 		if (onGround) {
-			    velocityY = -12.0;
-        		onGround = false;
+			tempVelocity = velocityX;
+			estadoActual = ESTADO_SALTANDO;
+			velocityY = -12.0;
+			onGround = false;
 		}
-
 	}
 
 	public void jumpEnd() {
 		if(velocityY < -6.0){
+			estadoActual = ESTADO_SALTANDO;
 			velocityY = -6.0;
 		}
-	 
-	 
-
 	}
+
 	public void quieto() {
 		estadoActual = ESTADO_QUIETO;
-		//acceleration.mult(0);
 	}
-	public void left() {
-		velocityX = -4.0;
-		direccionActual = DIRECCION_IZQUIERDA;
 
-		estadoActual = ESTADO_CAMINANDO;
-		direccionAngulo=-1;
+	public void left() {
+		if(estadoActual != ESTADO_SALTANDO) {
+			velocityX = -4.0;
+			estadoActual = ESTADO_CAMINANDO;
+			direccionActual = DIRECCION_IZQUIERDA;
+		}
+//		this.setX(punto.getX() + velocityX);
 	}
 
 	public void right() {
-
-		velocityX = 4.0;
-
-		direccionActual = DIRECCION_DERECHA;
-		estadoActual = ESTADO_CAMINANDO;
-
-		direccionAngulo= 1;
+		if(estadoActual != ESTADO_SALTANDO) {
+			velocityX = 4.0;
+			estadoActual = ESTADO_CAMINANDO;
+			direccionActual = DIRECCION_DERECHA;
+		}
+//		this.setX(punto.getX() + velocityX);
 	}
 
 	public void update(double delta) {
 		velocityY += gravity;
-    	punto.setLocation(punto.getX() + velocityX, punto.getY() + velocityY);
+		if (estadoActual == ESTADO_CAMINANDO ) {
+			this.setY(this.getY() + velocityY);
+			this.setX(this.getX() + velocityX);
+		}
 
-		angulo=(angulo % 360);
+		if(estadoActual == ESTADO_SALTANDO) {
+			this.setY(this.getY() + velocityY);
+			this.setX(this.getX() + tempVelocity);
+		}
+
+//		this.setX(this.getX()velocityX); += ;
+//		positionY += velocityY;
 
 		Mundo m = Mundo.getInstance();
 
-		/* Rebota contra los margenes X del mundo */
-		if ((punto.getX()+ (this.getWidth())) > m.getWidth()) {
-			//positionX = m.getWidth() - (this.getWidth());
-			velocityX *= -1 ;
-		}
+        /* Rebota contra los margenes X del mundo */
+        if ((this.getX() + (this.getWidth())) > m.getWidth()) {
+            this.setX(m.getWidth() - (this.getWidth()));
+            velocityX= -1;
+        }
+
 		/* Rebota contra la X=0 del mundo */
-		if ((punto.getX()) < 0) {
-			velocityX *= -1  ;
-			punto.setLocation(0, punto.getY());
+        if ((getX()) < 0) {
+            velocityX= -1;
+            this.setX(0);
+        }
+
+        if (getY() > POSICION_Y_PISO) {
+            this.setY(POSICION_Y_PISO);
+            velocityY = 0.0;
+            onGround = true;
+			estadoActual = ESTADO_QUIETO;
 		}
-
-	    if(punto.getY() > POSICION_Y_PISO){
-	        punto.setLocation(punto.getX(), POSICION_Y_PISO);
-	        velocityY = 0.0;
-	        onGround = true;
-	        angulo=0;
-	        /*ya toco el piso*/
-	    }
-	    if ( velocityY != 0.0){
-			//mientras este saltando
-	    	this.rotarImagenGrados(10 * direccionAngulo);
-	    }
-
 	}
-
 
 	private void rotarImagenGrados(double ang){
 			angulo +=ang;
-			//double rads = Math.toRadians(angulo);
 	}
 
-
 	 public void display(Graphics2D g2) {
-	 	/*Redefinicion de Display para poder hacer la rotacion cuando salta*/
-
-	 	AffineTransform transform = new AffineTransform();
-		transform.rotate(Math.toRadians(angulo), this.getX() + getWidth()/2, this.getY() + getHeight()/2);
-
-
-		AffineTransform old = g2.getTransform();
-		g2.transform(transform);
-
 		g2.drawImage(sprite,(int) this.getX(),(int) this.getY(),null);
-
-		g2.setTransform(old);
-  	}
-
-
+	}
 }

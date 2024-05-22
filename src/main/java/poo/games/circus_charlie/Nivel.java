@@ -26,13 +26,13 @@ public abstract class Nivel {
         this.charlie= new Personaje("imagenes/Caldero.png");
         this.charlie.setX(300);
         this.charlie.setY(360);
+        this.charlie.quieto();
 
         cam = new Camara(0, 0);
         cam.setRegionVisible(640, 480);
 
-        fondo = new Fondo("imagenes/FondoCircusCharlieCasiCasiFinal.png");
+        fondo = new Fondo("imagenes/FondoCircusCharlieFinal.png");
         m.setLimitesMundo(fondo.getWidth(), fondo.getHeight());
-        this.charlie.quieto();
     }
 
     public void draw(Graphics2D g) {

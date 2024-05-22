@@ -62,9 +62,9 @@ public class Mundo {
 
     public void display(Graphics2D g2) {
 
-        g2.setColor(Color.blue);
-        g2.setStroke(new BasicStroke(5.0f));
-        g2.drawString(" Inicio del Mundo ", 10, 50);
+//        g2.setColor(Color.blue);
+//        g2.setStroke(new BasicStroke(5.0f));
+//        g2.drawString(" Inicio del Mundo ", 10, 50);
         g2.drawString(" Fin del Mundo ", (int) getWidth() - 150, 50);
         g2.draw(mundo);
 
