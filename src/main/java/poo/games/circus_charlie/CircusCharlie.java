@@ -1,15 +1,18 @@
 package poo.games.circus_charlie;
 
 import com.entropyinteractive.JGame;
+
 import com.entropyinteractive.Keyboard;
 
 import poo.games.Personaje;
 import poo.games.Camara;
 
+
 import java.awt.*;
 import java.awt.event.*;
 
 import java.util.*;
+
 
 
 public class CircusCharlie extends JGame{
@@ -75,6 +78,7 @@ public class CircusCharlie extends JGame{
     };
  
     public void gameShutdown(){};
+
 
     public static void main(String[] args) {
         System.out.println("Circus Charlie");

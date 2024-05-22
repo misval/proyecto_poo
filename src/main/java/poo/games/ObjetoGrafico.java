@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 
 
 public abstract class ObjetoGrafico {
@@ -16,7 +17,9 @@ public abstract class ObjetoGrafico {
         try {
             this.sprite = ImageIO.read(getClass().getClassLoader().getResourceAsStream(sprite));
             this.dimensiones = new Dimension(this.sprite.getWidth(), this.sprite.getHeight());
+
             this.punto = new Point(0,0);
+
         } catch (Exception e) {
             System.out.println(e);
         }
