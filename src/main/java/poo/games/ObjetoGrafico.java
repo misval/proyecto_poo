@@ -6,6 +6,7 @@ import java.awt.Point;
 import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 
 
 public abstract class ObjetoGrafico {
@@ -16,7 +17,10 @@ public abstract class ObjetoGrafico {
 
     public ObjetoGrafico(String sprite){
         try {
-            this.sprite = ImageIO.read(getClass().getClassLoader().getResourceAsStream(sprite));;
+            this.sprite = ImageIO.read(getClass().getClassLoader().getResourceAsStream(sprite));
+            this.dimensiones = new Dimension(this.sprite.getWidth(), this.sprite.getHeight());
+            this.punto = new Point(0, 0);
+            colision  = new Rectangle(punto, dimensiones);
         } catch (Exception e) {
             System.out.println(e);
         }

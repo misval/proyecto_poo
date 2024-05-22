@@ -39,8 +39,7 @@ public class Personaje extends ObjetoGrafico{
 	public final int POSICION_Y_PISO=360;
 
 	public Personaje(String filename){
-			super(filename, new Dimension(), new Point());
-
+			super(filename);
 	}
 
 
