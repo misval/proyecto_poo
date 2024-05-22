@@ -14,11 +14,3 @@ dependencies {
 	implementation fileTree(dir: 'src/main/resources/libs', include: '*.*')
 }
 
-tasks.named("assemble"){
-	doLast{
-		copy{
-			from("src/main/resources/jgame.properties") 
-			into(".")
-		}
-	}
-}

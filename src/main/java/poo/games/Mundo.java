@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.geom.*;
 
 public class Mundo {
-    private static final int ANCHO_MUNDO = 640 * 13;
+    private static final int ANCHO_MUNDO = 640 * 10;
     private static final int ALTO_MUNDO = 480;
 
     private static Mundo INSTANCE = null;
