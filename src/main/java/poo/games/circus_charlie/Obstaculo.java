@@ -1,4 +1,10 @@
 package poo.games.circus_charlie;
 
-public class Obstaculo {
+import poo.games.ObjetoGrafico;
+
+public class Obstaculo extends ObjetoGrafico{
+
+    public Obstaculo(String sprite){
+        super(sprite);
+    }
 }

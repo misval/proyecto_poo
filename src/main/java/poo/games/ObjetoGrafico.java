@@ -17,7 +17,6 @@ public abstract class ObjetoGrafico {
         try {
             this.sprite = ImageIO.read(getClass().getClassLoader().getResourceAsStream(sprite));
             this.dimensiones = new Dimension(this.sprite.getWidth(), this.sprite.getHeight());
-
             this.punto = new Point(0,0);
 
         } catch (Exception e) {
@@ -55,6 +54,13 @@ public abstract class ObjetoGrafico {
         } catch (Exception e) {
             System.out.println(e);
         }  
+    }
+
+    public void display(Graphics2D g,int width, int height) {
+        for(int i = 0; i < i * width; i++){
+            g.drawImage(sprite.getSubimage(i * width, 0, width, height), (int) this.getX(), (int) this.getY(), null);
+        }
+        
     }
 
     public void display(Graphics2D g) {
