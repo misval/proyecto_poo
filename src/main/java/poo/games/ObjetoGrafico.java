@@ -58,15 +58,10 @@ public abstract class ObjetoGrafico {
     }
 
     public void display(Graphics2D g,int cantFrames ,int width, int height) {
-        try {
-            for(int i = 0; i < cantFrames; i++){
-                TimeUnit.SECONDS.sleep(1);
-                g.drawImage(sprite.getSubimage(i * width, 0, width, height), (int) this.getX(), (int) this.getY(), null);
-            }
-        } catch (Exception e) {
-            System.out.println(e);
+
+        for(int i = 0; i < cantFrames; i++){
+            g.drawImage(sprite.getSubimage(i * width, 0, width, height), (int) this.getX(), (int) this.getY(), null);
         }
-          
     }
 
     public void display(Graphics2D g) {
