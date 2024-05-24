@@ -49,7 +49,7 @@ public abstract class Nivel {
 
     Nivel() {
         Mundo m = Mundo.getInstance();
-        this.charlie= new Personaje("imagenes/ImagenCharlieEstatica.png");
+        this.charlie= new Personaje("imagenes/CharlieCabalgando.png");
         this.charlie.setX(300);
         this.charlie.setY(360);
         this.charlie.quieto();

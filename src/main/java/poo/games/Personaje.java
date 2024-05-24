@@ -102,6 +102,6 @@ public class Personaje extends ObjetoGrafico {
 	}
 
 	 public void display(Graphics2D g2) {
-		display(g2,40, 60);
+		super.display(g2, 2,40, 60);
 	}
 }
