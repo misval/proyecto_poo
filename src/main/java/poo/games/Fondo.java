@@ -41,4 +41,5 @@ public class Fondo extends ObjetoGrafico{
     public void update(double delta){
 
     }
+
 }

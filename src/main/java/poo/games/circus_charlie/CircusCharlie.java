@@ -16,14 +16,15 @@ import java.util.*;
 
 
 public class CircusCharlie extends JGame{
+    private Personaje heroe;
     private Nivel nivel;
 
     public CircusCharlie(){
         super("CircusCharlie", 800, 480);
-
-//        nivel = new Nivel1();
+//      nivel = new Nivel1();
+//      nivel = new Nivel2();
         nivel = new Nivel3();
-//        nivel.getCharlie().quieto();
+//      nivel.getCharlie().quieto();
     };
 
     public void gameStartup(){
@@ -35,8 +36,7 @@ public class CircusCharlie extends JGame{
     public void gameUpdate(double var1){
         Keyboard keyboard = this.getKeyboard();
 
-
-        Personaje heroe = nivel.getCharlie();
+        heroe = nivel.getCharlie();
         Camara cam = nivel.getCam();
 
         if (keyboard.isKeyPressed(KeyEvent.VK_LEFT)){
@@ -63,11 +63,15 @@ public class CircusCharlie extends JGame{
         }
 
         heroe.update(var1);
+        System.out.println("1" + heroe.getY());
         cam.seguirPersonaje(heroe);
     };
  
-    public void gameDraw(Graphics2D var1){
+    public void gameDraw(Graphics2D var1)
+    {
         nivel.draw(var1);
+        System.out.println("ENTREEEE");
+
     };
  
     public void gameShutdown(){

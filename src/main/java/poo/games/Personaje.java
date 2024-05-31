@@ -2,6 +2,7 @@ package poo.games;
 
 import java.awt.*;
 import java.awt.geom.*;
+import poo.games.circus_charlie.Montura;
 
 import java.awt.image.*;
 import javax.imageio.*;
@@ -27,7 +28,6 @@ public class Personaje extends ObjetoGrafico {
 	int estadoActual;
 	double tempVelocity;
 
-
 	protected double velocityX = 4.0;
 	protected double velocityY = 0.0;
 	protected double gravity = 0.5;
@@ -37,8 +37,17 @@ public class Personaje extends ObjetoGrafico {
 
 	public final int POSICION_Y_PISO=335;
 
-	public Personaje(String filename){
+	public Montura getMontura() {
+		return montura;
+	}
 
+	public void setMontura(Montura montura) {
+		this.montura = montura;
+	}
+
+	private Montura montura;
+
+	public Personaje(String filename){
 		super(filename);
 	}
 
@@ -82,7 +91,8 @@ public class Personaje extends ObjetoGrafico {
 
 	public void update(double delta) {
 		velocityY += gravity;
-		if (estadoActual == ESTADO_CAMINANDO ) {
+		System.out.println(this.getY());
+		if (estadoActual == ESTADO_CAMINANDO) {
 			this.setY(this.getY() + velocityY);
 			this.setX(this.getX() + velocityX);
 		}
@@ -91,9 +101,6 @@ public class Personaje extends ObjetoGrafico {
 			this.setY(this.getY() + velocityY);
 			this.setX(this.getX() + tempVelocity);
 		}
-
-//		this.setX(this.getX()velocityX); += ;
-//		positionY += velocityY;
 
 		Mundo m = Mundo.getInstance();
 
@@ -110,7 +117,11 @@ public class Personaje extends ObjetoGrafico {
         }
 
         if (getY() > POSICION_Y_PISO) {
-            this.setY(POSICION_Y_PISO);
+			if (montura != null) {
+				this.setY(montura.getY() + montura.getHeight());
+			} else {
+				this.setY(POSICION_Y_PISO);
+			}
             velocityY = 0.0;
             onGround = true;
 			estadoActual = ESTADO_QUIETO;
@@ -121,7 +132,8 @@ public class Personaje extends ObjetoGrafico {
 			angulo +=ang;
 	}
 
-	 public void display(Graphics2D g2) {
-		g2.drawImage(sprite,(int) this.getX(),(int) this.getY(),null);
-	}
+//	 public void display(Graphics2D g2) {
+//		g2.drawImage(sprite,(int) this.getX(),(int) this.getY(),null);
+//		System.out.println(this.getY());
+//	}
 }

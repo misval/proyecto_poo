@@ -28,5 +28,7 @@ public class Paleta extends ObjetoGrafico{
 
     public void draw(Graphics2D g){
         g.drawImage(sprite, (int)this.getX(), (int)this.getY(), this.getWidth(), this.getHeight(),null);
-    }  
+    }
+
+
 }

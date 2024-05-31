@@ -39,8 +39,6 @@ public class Pong extends JGame{
 
     public void gameStartup(){
         try{
-
-
             FXPlayer.SOUND_TRACK.loop();
 
             String imagenJ1 = "imagenes/SpriteJ1.jpeg";
