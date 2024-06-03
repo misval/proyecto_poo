@@ -2,6 +2,7 @@ package poo.games;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.concurrent.TimeUnit;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -54,6 +55,13 @@ public abstract class ObjetoGrafico {
         } catch (Exception e) {
             System.out.println(e);
         }  
+    }
+
+    public void display(Graphics2D g,int cantFrames ,int width, int height) {
+
+        for(int i = 0; i < cantFrames; i++){
+            g.drawImage(sprite.getSubimage(i * width, 0, width, height), (int) this.getX(), (int) this.getY(), null);
+        }
     }
 
     public void display(Graphics2D g) {

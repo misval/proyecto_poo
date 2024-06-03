@@ -49,15 +49,4 @@ public class Camara {
     	return this.y;
 
     }
-
-    /////
-    /*
-     * init
-     * g2d.translate(camera.getX(),camera.getY());
-     *
-     *
-     * end
-     * g2d.translate(-camera.getX(),-camera.getY());
-     **/
-
 }
