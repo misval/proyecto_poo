@@ -6,8 +6,10 @@ import poo.games.pong.Pong;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
-import javax.imageio.ImageIO;
+import java.nio.Buffer;
+import javax.imageio.*;
 import javax.swing.*;
+import java.awt.Toolkit;
 
 
 
@@ -112,8 +114,8 @@ public class GamePlatform extends JFrame implements ActionListener {
 
 //		circusCharlie.setSize(new Dimension(40, 60));
 
-//		BufferedImage imageC = ImageIO.read(getClass().getClassLoader().getResourceAsStream("imagenes/CircusCharlie_arcadeflyer.png"));
-		JLabel imageCircus = new JLabel();
+		Image imgC = Toolkit.getDefaultToolkit().getImage("imagenes/CircusCharlie_arcadeflyer.png");
+		JLabel imageCircus = new JLabel(new ImageIcon(imgC));
 		Label titleCircus = new Label("Circus Charlie");
 
 //		panel de botones
