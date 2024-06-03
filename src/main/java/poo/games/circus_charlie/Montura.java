@@ -16,7 +16,7 @@ public abstract class  Montura extends ObjetoGrafico {
            this.charlie = charlie;
     }
 
-    public abstract void moverse(Integer direccion, double desplazamiento);
+    public abstract void moverse(Integer direccion);
 
     public void draw(Graphics2D g){
         g.drawImage(sprite, (int)this.getX(), (int)this.getY(), this.getWidth(), this.getHeight(),null);
