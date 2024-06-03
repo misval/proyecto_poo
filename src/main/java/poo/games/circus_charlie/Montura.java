@@ -16,11 +16,6 @@ public abstract class  Montura extends ObjetoGrafico {
            this.charlie = charlie;
     }
 
-    public void seguirCharlie() {
-        this.setX(charlie.getX());
-        this.setY(charlie.getY() - this.getHeight());
-    }
-
     public abstract void moverse(Integer direccion, double desplazamiento);
 
     public void draw(Graphics2D g){

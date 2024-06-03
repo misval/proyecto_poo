@@ -32,11 +32,10 @@ public class Nivel3 extends Nivel {
 //      seteo la posicion Y de charlie dependiendo el Rectangle de la pelota y la posicion X se la doy a la pelota
 //      y despues a charlie, esta sera solo la primera vez, luego la pelota sigue a charlie
         charlie.setX(pelotaActual.getX());
-        charlie.setY(pelotaActual.getY() + pelotaActual.getHeight());
-        System.out.println("1" + charlie.getY());
+        charlie.setY(pelotaActual.getY() - pelotaActual.getHeight());
         charlie.quieto();
-        System.out.println(charlie.getY());
 
+        pelotaActual.addCharlie(charlie);
         cam = new Camara(0, 0);
         cam.setRegionVisible(640, 480);
 
@@ -49,7 +48,6 @@ public class Nivel3 extends Nivel {
         return cam;
     }
     public Personaje getCharlie() {
-        System.out.println("este? " + charlie.getY());
         return charlie;
     }
 
@@ -67,9 +65,13 @@ public class Nivel3 extends Nivel {
     }
 
     public void update() {
-//        charlie.setY(charlie.getY() + pelotaActual.getHeight());
-//        System.out.println("UPDATE CHARLIE NIVEL 3" + charlie.getY());
-//        pelotaActual.seguirCharlie();
-//        System.out.println("UPDATE PELOTA NIVEL 3" + pelotaActual.getY());
+//      Si la pelota actual esta colisionando con el charlie, le seteo la misma x que el charlie
+//      Sino la pelota se movera a la izquierda como normalmente lo hace
+//      Si la pelotaActual colisiona con otra pelota esta pelota sale para la izquierda y la otra pelota sale para la derecha
+
+//      charlie.setY(pelotaActual.getY() - pelotaActual.getHeight());
+        pelotaActual.setX(charlie.getX());
+//      System.out.println("UPDATE CHARLIE NIVEL 3" + charlie.getY());
+//      System.out.println("UPDATE PELOTA NIVEL 3" + pelotaActual.getY());
     };
 }

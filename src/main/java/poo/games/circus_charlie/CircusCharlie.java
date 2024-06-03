@@ -63,8 +63,8 @@ public class CircusCharlie extends JGame{
         }
 
         heroe.update(var1);
-        System.out.println("1" + heroe.getY());
         cam.seguirPersonaje(heroe);
+        nivel.update();
     };
  
     public void gameDraw(Graphics2D var1)

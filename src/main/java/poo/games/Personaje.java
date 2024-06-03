@@ -118,7 +118,7 @@ public class Personaje extends ObjetoGrafico {
 
         if (getY() > POSICION_Y_PISO) {
 			if (montura != null) {
-				this.setY(montura.getY() + montura.getHeight());
+				this.setY(montura.getY() - montura.getHeight());
 			} else {
 				this.setY(POSICION_Y_PISO);
 			}
