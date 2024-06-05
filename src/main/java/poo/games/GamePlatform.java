@@ -5,27 +5,11 @@ import poo.games.pong.Pong;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.Buffer;
-import javax.imageio.*;
+
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
-import java.awt.Toolkit;
-
-
-
-import com.entropyinteractive.*; //las librerias JGame,GameLoop,KeyBoard,Mouse,etc...
 
 public class GamePlatform extends JFrame implements ActionListener {
-
-//	JGame juego;
-//	Thread t;
-
 	public GamePlatform() {
 		super("Nintendo Platform");
 		setSize(1000, 600);
@@ -146,9 +130,6 @@ public class GamePlatform extends JFrame implements ActionListener {
 		containerJuegos.add(paddingSuperior, BorderLayout.NORTH);
 		containerJuegos.add(juegos, BorderLayout.CENTER);
 		containerJuegos.add(paddingIzquierdo, BorderLayout.WEST);
-
-		Panel auxPanel1 = new Panel();
-		Panel auxPanel2 = new Panel();
 
 //		JUEGO PANEL
 //		CIRCUS CHARLIE
