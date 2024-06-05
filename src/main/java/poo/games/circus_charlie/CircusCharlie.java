@@ -18,6 +18,16 @@ import java.util.*;
 public class CircusCharlie extends JGame{
     private Personaje heroe;
     private Nivel nivel;
+    public Integer ban = 1;
+
+
+    public Integer getBan() {
+        return ban;
+    }
+
+    public void setBan(Integer ban) {
+        this.ban = ban;
+    }
 
     public CircusCharlie(){
         super("CircusCharlie", 800, 480);
@@ -67,11 +77,8 @@ public class CircusCharlie extends JGame{
         nivel.update();
     };
  
-    public void gameDraw(Graphics2D var1)
-    {
+    public void gameDraw(Graphics2D var1) {
         nivel.draw(var1);
-        System.out.println("ENTREEEE");
-
     };
  
     public void gameShutdown(){

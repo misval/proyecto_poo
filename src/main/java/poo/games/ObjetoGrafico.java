@@ -65,7 +65,6 @@ public abstract class ObjetoGrafico {
     }
 
     public void display(Graphics2D g) {
-        System.out.println("SOYY YOOOOO: " + this.getY());
         g.drawImage(sprite, (int) this.getX(), (int) this.getY(), null);
     }
 

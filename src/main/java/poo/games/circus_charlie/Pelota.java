@@ -14,6 +14,15 @@ public class Pelota extends Montura {
         super(sprite);
     };
 
+
+    public double getDesplazamiento() {
+        return desplazamiento;
+    }
+
+    public void setDesplazamiento(double desplazamiento) {
+        this.desplazamiento = desplazamiento;
+    }
+
 //  deberia recibir la direccion y el desplazamiento
     public void moverse(Integer direccion) {
         if(direccion == DIRECCION_DERECHA) {
@@ -22,6 +31,4 @@ public class Pelota extends Montura {
             this.setX(this.getX() - desplazamiento);
         }
     }
-
-
 }
