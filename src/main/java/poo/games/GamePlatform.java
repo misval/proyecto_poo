@@ -5,14 +5,24 @@ import poo.games.pong.Pong;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+import java.io.*;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 
 public class GamePlatform extends JFrame implements ActionListener {
+	private JFrame iniciarSesion;
+	private JTextField nombreTextField;
+//	public int north;
+	private ArrayList<Jugador> jugadores = new ArrayList<>();
+	private BufferedWriter escritorJugadores;
+//	public Jugador jugadorActual;
+
 	public GamePlatform() {
 		super("Nintendo Platform");
 		setSize(1000, 600);
+		setLocation(180, 80);
 
 
 		addWindowListener(new WindowAdapter() {
@@ -96,18 +106,20 @@ public class GamePlatform extends JFrame implements ActionListener {
 		navBar.setLayout(new BorderLayout());
 		Panel navBarItems = new Panel();
 
-		JLabel searchLabel = new JLabel("Search");
+		JLabel searchLabel = new JLabel("Buscar");
 		searchLabel.setFont(retroFont);
 		searchLabel.setForeground(Color.WHITE);
 		searchLabel.setBorder(new LineBorder(Color.WHITE, 1));
-		JLabel acountLabel = new JLabel("Account");
-		acountLabel.setFont(retroFont);
-		acountLabel.setForeground(Color.WHITE);
-		acountLabel.setBorder(new LineBorder(Color.WHITE, 1));
+		JButton iniciarSesionButton = new JButton("Iniciar sesion");
+		iniciarSesionButton.setFont(retroFont);
+		iniciarSesionButton.setForeground(Color.WHITE);
+		iniciarSesionButton.setBorder(new LineBorder(Color.WHITE, 1));
+
+		iniciarSesionButton.addActionListener(this);
 
 		navBarItems.setLayout(new GridLayout(1, 2));
 		navBarItems.add(searchLabel);
-		navBarItems.add(acountLabel);
+		navBarItems.add(iniciarSesionButton);
 		navBar.add(navBarItems, BorderLayout.EAST);
 		navBar.setBackground(Color.BLACK);
 		navBarItems.setBackground(Color.BLACK);
@@ -207,46 +219,73 @@ public class GamePlatform extends JFrame implements ActionListener {
 		juegos.add(juegosContainer);
 		juegos.setMaximumSize(new Dimension(1000, 400));
 
+//      VENTANA INICIAR SESION
+		iniciarSesion = new JFrame("Iniciar sesion");
+		iniciarSesion.setSize(500, 500);
+		iniciarSesion.setLocation(430, 160);
 
-//		JPanel fondo = new JPanel();
-//		JPanel barraSuperior = new JPanel();
-//		JPanel barraInferior = new JPanel();
-//		JPanel juegosLaterales = new JPanel();
-//		JPanel juegosCentral = new JPanel();
-//
-//		this.add(juegosLaterales);
-////		fondo.add(barraSuperior);
-////		fondo.add(barraInferior);
-//		barraInferior.add(juegosLaterales);
-//		barraInferior.add(juegosCentral);
-//
-//		juegosLaterales.setBackground(Color.BLACK);
-//		juegosCentral.setBackground(Color.CYAN);
-//		barraInferior.setBackground(Color.GREEN);
-//		barraSuperior.setBackground(Color.PINK);
-//
-//		barraInferior.setLayout(new GridLayout(1, 2,0,0));
-//		juegosLaterales.setLayout(new GridLayout(2,1,0,0));
-//		fondo.setLayout(new GridLayout(2, 0, 0, 0));
-//		this.setLayout(new GridLayout(1,0,0,0));
-//
-//		String[] arrEtiquetas = { "Pong", "CircusCharlie"};
-//		JButton boton;
-//
-//		for (String etiqueta : arrEtiquetas) {
-//
-//			boton = new JButton(etiqueta);
-//
-//			boton.addActionListener(this);
-//			juegosLaterales.add(boton);
-//		}
+		JPanel containerIniciarSesion = new JPanel();
+		containerIniciarSesion.setLayout(new GridLayout(3, 1));
 
+		JLabel nombreLabel = new JLabel("Ingresa tu nombre: ");
+		nombreTextField = new JTextField();
+		JButton ingresarNombreButton = new JButton("Ingresar");
 
+		ingresarNombreButton.addActionListener(this);
+
+		containerIniciarSesion.add(nombreLabel);
+		containerIniciarSesion.add(nombreTextField);
+		containerIniciarSesion.add(ingresarNombreButton);
+
+		iniciarSesion.add(containerIniciarSesion);
+
+//		bucle for recorriendo las lineas de un archivo y aniadiendo el jugador con sus puntajes
+		try {
+			// Crear un lector para el archivo de entrada
+			BufferedReader lectorJugadores = new BufferedReader(new FileReader("src/main/resources/files/jugadores.txt"));
+
+			String linea;
+			Integer countLines = 1;
+			Jugador j = new Jugador();
+			while ((linea = lectorJugadores.readLine()) != null) {
+				if(countLines > 3) {
+					jugadores.add(j);
+					countLines = 1;
+				}
+				if(countLines == 1) {
+					j.setNombre(linea);
+				}
+				if(countLines == 2) {
+					j.setPuntosPong(Integer.parseInt(linea));
+				}
+				if(countLines == 3) {
+					j.setPuntosCharlie(Integer.parseInt(linea));
+				}
+			}
+
+			lectorJugadores.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
-//	public void actionPerformed(ActionEvent e) {};
-
 	public void actionPerformed(ActionEvent e) {
+		if (e.getActionCommand().equals("Iniciar sesion")) {
+			iniciarSesion.setVisible(true);
+		}
+
+		if (e.getActionCommand().equals("Ingresar")) {
+//			sacar valor del text field
+// 			recorrer el arreglo jugadores y me fijo si ya existe el jugador
+//			seteo el jugadoractual con el jugador encontrado o con un nuevo jugador
+			for(Jugador j : jugadores) {
+				if(j.nombre.equals(nombreTextField.getText())) {
+//					jugadorActual = j;
+				}
+			}
+
+			iniciarSesion.dispose();
+		}
 
 		if (e.getActionCommand().equals("jugar pong")) {
 			Pong juego = new Pong();
@@ -276,6 +315,16 @@ public class GamePlatform extends JFrame implements ActionListener {
 	public static void main(String[] args) {
 		GamePlatform gamesWindow = new GamePlatform();
 		gamesWindow.setVisible(true);
+
+//
+//		int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
+//		int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
+//
+//		int width = gamesWindow.getWidth();
+//		int height = gamesWindow.getHeight();
+//
+//		gamesWindow.north = ((screenWidth - width)/2);
+
 	}
 
 }
