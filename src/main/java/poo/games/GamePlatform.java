@@ -17,7 +17,7 @@ public class GamePlatform extends JFrame implements ActionListener {
 //	public int north;
 	private ArrayList<Jugador> jugadores = new ArrayList<>();
 	private BufferedWriter escritorJugadores;
-//	public Jugador jugadorActual;
+	public Jugador jugadorActual;
 
 	public GamePlatform() {
 		super("Nintendo Platform");
@@ -278,10 +278,20 @@ public class GamePlatform extends JFrame implements ActionListener {
 //			sacar valor del text field
 // 			recorrer el arreglo jugadores y me fijo si ya existe el jugador
 //			seteo el jugadoractual con el jugador encontrado o con un nuevo jugador
+			boolean nuevoJugador = true;
+
 			for(Jugador j : jugadores) {
 				if(j.nombre.equals(nombreTextField.getText())) {
-//					jugadorActual = j;
+					jugadorActual = j;
+					nuevoJugador = false;
 				}
+			}
+
+			if(nuevoJugador) {
+				jugadorActual = new Jugador();
+				jugadorActual.setNombre(nombreTextField.getText());
+				jugadorActual.setPuntosCharlie(0);
+				jugadorActual.setPuntosPong(0);
 			}
 
 			iniciarSesion.dispose();
