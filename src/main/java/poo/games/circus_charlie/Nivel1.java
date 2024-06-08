@@ -15,7 +15,7 @@ public class Nivel1 extends Nivel {
         Mundo m = Mundo.getInstance();
         
         charlie = new Personaje("imagenes/ImagenCharlieEstatica.png");
-        leon = new Leon("imagenes/Leon.png");
+        leon = new Leon("imagenes/LeonQuieto.png");
 
         leon.setX(120);
         leon.setY(120);
@@ -40,6 +40,7 @@ public class Nivel1 extends Nivel {
         fondo.display(g);
         m.display(g);
         charlie.display(g);
+        leon.display(g);
 
         g.translate(-cam.getX(), -cam.getY());
     };
