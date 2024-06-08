@@ -52,7 +52,7 @@ public class Nivel3 extends Nivel {
         charlie.setY(pelotaActual.getY() - pelotaActual.getHeight());
         charlie.quieto();
 
-        pelotaActual.addCharlie(charlie);
+        //pelotaActual.addCharlie(charlie);
         cam = new Camara(0, 0);
         cam.setRegionVisible(640, 480);
 

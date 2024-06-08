@@ -1,19 +1,13 @@
 package poo.games.circus_charlie;
 
 import poo.games.ObjetoGrafico;
-import poo.games.Personaje;
 
 import java.awt.*;
 
 public abstract class  Montura extends ObjetoGrafico {
-    Personaje charlie;
 
     Montura(String sprite) {
         super(sprite);
-    }
-
-    public void addCharlie(Personaje charlie) {
-           this.charlie = charlie;
     }
 
     public abstract void moverse(Integer direccion);
