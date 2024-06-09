@@ -17,13 +17,11 @@ public class Camara {
 		//this.x = -b.getX()+(m.getWidth()/8);
 		this.x = -obj.getX()+resX/2;
 		if (this.x>0){
-				this.x=0;
+			this.x=0;
 		}
-
 		if(this.x < -(m.getWidth()-resX)){
 			this.x = -(m.getWidth()-resX);
 		}
-
 
 	}
 	public void setViewPort(double x,double y){
@@ -40,18 +38,22 @@ public class Camara {
 
     public void setX(double x){
     	this.x=x;
-
     }
      public void setY(double y){
     	this.y=y;
-
     }
     public double getX(){
     	return this.x;
-
     }
+
      public double getY(){
     	return this.y;
-
     }
+
+	public double GetRegionVisibleX(){
+		return this.resX;
+	}
+	public double GetRegionVisibleY(){
+		return this.resY;
+	}
 }

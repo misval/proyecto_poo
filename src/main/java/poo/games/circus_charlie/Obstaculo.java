@@ -2,9 +2,17 @@ package poo.games.circus_charlie;
 
 import poo.games.ObjetoGrafico;
 
-public class Obstaculo extends ObjetoGrafico{
+import java.awt.*;
 
-    public Obstaculo(String sprite){
+public abstract class Obstaculo extends ObjetoGrafico{
+
+    Obstaculo(String sprite){
         super(sprite);
+    }
+
+    public abstract void moverse(Integer direccion);
+
+    public void draw(Graphics2D g){
+        g.drawImage(sprite, (int)this.getX(), (int)this.getY(), this.getWidth(), this.getHeight(),null);
     }
 }
