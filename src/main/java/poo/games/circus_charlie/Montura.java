@@ -5,7 +5,6 @@ import poo.games.ObjetoGrafico;
 import java.awt.*;
 
 public abstract class  Montura extends ObjetoGrafico {
-
     Montura(String sprite) {
         super(sprite);
     }

@@ -1,5 +1,9 @@
 package poo.games.circus_charlie;
 
-public class Meta {
-    
+import poo.games.ObjetoGrafico;
+
+public class Meta extends ObjetoGrafico {
+    Meta(String sprite) {
+        super(sprite);
+    }
 }

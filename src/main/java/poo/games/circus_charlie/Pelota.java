@@ -8,11 +8,20 @@ public class Pelota extends Montura {
     final int DIRECCION_DERECHA = 0;
     final int DIRECCION_IZQUIERDA = 1;
 
-    private double desplazamiento = 1.0;
+    private double desplazamiento = 2;
 
     Pelota(String sprite) {
         super(sprite);
     };
+
+
+    public double getDesplazamiento() {
+        return desplazamiento;
+    }
+
+    public void setDesplazamiento(double desplazamiento) {
+        this.desplazamiento = desplazamiento;
+    }
 
 //  deberia recibir la direccion y el desplazamiento
     public void moverse(Integer direccion) {
@@ -22,6 +31,4 @@ public class Pelota extends Montura {
             this.setX(this.getX() - desplazamiento);
         }
     }
-
-
 }

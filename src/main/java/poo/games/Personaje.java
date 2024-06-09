@@ -35,7 +35,15 @@ public class Personaje extends ObjetoGrafico {
 
 	protected int direccionAngulo= 1;
 
-	public final int POSICION_Y_PISO=335;
+	private int POSICION_Y_PISO=335;
+
+	public int getPOSICION_Y_PISO() {
+		return POSICION_Y_PISO;
+	}
+
+	public void setPOSICION_Y_PISO(int POSICION_Y_PISO) {
+		this.POSICION_Y_PISO = POSICION_Y_PISO;
+	}
 
 	public Montura getMontura() {
 		return montura;
@@ -77,7 +85,6 @@ public class Personaje extends ObjetoGrafico {
 			estadoActual = ESTADO_CAMINANDO;
 			direccionActual = DIRECCION_IZQUIERDA;
 		}
-//		this.setX(punto.getX() + velocityX);
 	}
 
 	public void right() {
@@ -91,7 +98,6 @@ public class Personaje extends ObjetoGrafico {
 
 	public void update(double delta) {
 		velocityY += gravity;
-		System.out.println(this.getY());
 		if (estadoActual == ESTADO_CAMINANDO) {
 			this.setY(this.getY() + velocityY);
 			this.setX(this.getX() + velocityX);
@@ -117,11 +123,7 @@ public class Personaje extends ObjetoGrafico {
         }
 
         if (getY() > POSICION_Y_PISO) {
-			if (montura != null) {
-				this.setY(montura.getY() - montura.getHeight());
-			} else {
-				this.setY(POSICION_Y_PISO);
-			}
+			this.setY(POSICION_Y_PISO);
             velocityY = 0.0;
             onGround = true;
 			estadoActual = ESTADO_QUIETO;

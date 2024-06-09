@@ -33,6 +33,11 @@ public class Camara {
 		resX=x;
 		resY=y;
 	}
+
+	public double getRegionVisibleX() {
+		return resX;
+	}
+
     public void setX(double x){
     	this.x=x;
 
