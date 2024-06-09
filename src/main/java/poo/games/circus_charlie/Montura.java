@@ -1,7 +1,6 @@
 package poo.games.circus_charlie;
 
 import poo.games.ObjetoGrafico;
-import poo.games.Personaje;
 
 import java.awt.*;
 
