@@ -8,6 +8,12 @@ import poo.games.Personaje;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+// TODO 5: QUE PASA SI GANO?
+
+// TODO 4: IMPLEMENTAR MARCADOR DE PUNTOS Y VIDAS
 
 
 public class Nivel3 extends Nivel {
@@ -27,40 +33,28 @@ public class Nivel3 extends Nivel {
     public void iniciarse() {
         Mundo m = Mundo.getInstance();
 
-        try(BufferedReader mapFile = new BufferedReader(new FileReader("src/main/resources/files/mapFile.txt"))) {
-            if(mapFile.ready()) {
-                Integer pos1 = Integer.parseInt(mapFile.readLine());
-                pelotas[0] = new Pelota("imagenes/SpritePelota.jpeg");
-                pelotas[0].setX(pos1);
-                pelotas[0].setY(339);
-                pelotas[0].setColision(new Rectangle((int) pelotas[0].getX(), (int) pelotas[0].getY(), pelotas[0].getWidth(), pelotas[0].getHeight()));
-                Integer pos2 = Integer.parseInt(mapFile.readLine());
-                pelotas[1] = new Pelota("imagenes/SpritePelota.jpeg");
-                pelotas[1].setX(pos2);
-                pelotas[1].setY(339);
-                pelotas[1].setColision(new Rectangle((int)pelotas[1].getX(), (int) pelotas[1].getY(), pelotas[1].getWidth(), pelotas[1].getHeight()));
-                Integer pos3 = Integer.parseInt(mapFile.readLine());
-                pelotas[2] = new Pelota("imagenes/SpritePelota.jpeg");
-                pelotas[2].setX(pos3);
-                pelotas[2].setY(339);
-                pelotas[2].setColision(new Rectangle((int) pelotas[2].getX(), (int) pelotas[2].getY(), pelotas[2].getWidth(), pelotas[2].getHeight()));
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        for(int i = 0; i < pelotas.length; i++) {
+            pelotas[i] = new Pelota("imagenes/pelotaCharlie2.jpg");
+            pelotas[i].setY(339);
         }
+
+        pelotas[0].setX(250);
+        pelotas[1].setX(500);
+        pelotas[2].setX(700);
+
+        pelotas[0].setColision(new Rectangle((int) pelotas[0].getX(), (int) pelotas[0].getY(), pelotas[0].getWidth(), pelotas[0].getHeight()));
+        pelotas[1].setColision(new Rectangle((int) pelotas[1].getX(), (int) pelotas[1].getY(), pelotas[1].getWidth(), pelotas[1].getHeight()));
+        pelotas[2].setColision(new Rectangle((int) pelotas[2].getX(), (int) pelotas[2].getY(), pelotas[2].getWidth(), pelotas[2].getHeight()));
 
 //      creo variable pelotaActual
         pelotaActual = pelotas[0];
         pelotaSiguiente = pelotas[1];
         pelotaAuxiliar = pelotas[2];
 
-        charlie = new Personaje("imagenes/Caldero.png");
-
-//      seteo la posicion Y de charlie dependiendo el Rectangle de la pelota y la posicion X se la doy a la pelota
-//      y despues a charlie, esta sera solo la primera vez, luego la pelota sigue a charlie
-        charlie.setX(pelotaActual.getX());
-        charlie.setY(pelotaActual.getY() - pelotaActual.getHeight());
-        charlie.setPOSICION_Y_PISO((int) pelotaActual.getY() - pelotaActual.getHeight());
+        charlie = new Personaje("imagenes/ImagenCharlieEstatica.png");
+        charlie.setX(pelotaActual.getX() + (pelotaActual.getWidth() / 2.0));
+        charlie.setY(pelotaActual.getY() - pelotaActual.getHeight() + 18);
+        charlie.setPOSICION_Y_PISO( (int) pelotaActual.getY() - pelotaActual.getHeight() + 18);
         charlie.setColision(new Rectangle((int) charlie.getX(),(int) charlie.getY(), charlie.getWidth(), charlie.getHeight()));
         charlie.quieto();
 
@@ -72,14 +66,12 @@ public class Nivel3 extends Nivel {
         fondo = new Fondo("imagenes/FondoCircusCharlieFinal.png");
         m.setLimitesMundo(fondo.getWidth(), fondo.getHeight());
 
-        colsionPelotas = false;
-    }
+        meta = new Meta("imagenes/Meta1.png");
+        meta.setY(366);
+        meta.setX(6700);
+        meta.setColision(new Rectangle((int) meta.getX(),(int) meta.getY(), meta.getWidth(), meta.getHeight()));
 
-    public Camara getCam() {
-        return cam;
-    }
-    public Personaje getCharlie() {
-        return charlie;
+        colsionPelotas = false;
     }
 
     @Override
@@ -93,22 +85,24 @@ public class Nivel3 extends Nivel {
         charlie.display(g);
         pelotaSiguiente.display(g);
         pelotaAuxiliar.display(g);
+        meta.display(g);
 
         g.translate(-cam.getX(), -cam.getY());
     }
 
-
     public void update() {
+        if(charlie.getColision().intersects(meta.getColision())) {
+        }
 //      Si chocan las dos pelotas
-        if(pelotaActual.getColision().intersects(pelotaSiguiente.getColision()) || colsionPelotas) {
+        else if(pelotaActual.getColision().intersects(pelotaSiguiente.getColision()) || colsionPelotas) {
             colsionPelotas = true;
-//
+
             pelotaActual.setDesplazamiento(4);
             pelotaSiguiente.setDesplazamiento(4);
             pelotaActual.moverse(1);
             pelotaSiguiente.moverse(0);
 
-            if((pelotaActual.getX() + pelotaActual.getWidth()) < cam.getX()) {
+            if((pelotaActual.getX() + pelotaActual.getWidth()) < (-cam.getX())) {
                 this.reiniciarse();
             }
         }
@@ -116,7 +110,7 @@ public class Nivel3 extends Nivel {
         else if(charlie.getY() < charlie.getPOSICION_Y_PISO()) {
             // la montura es nula
             charlie.setMontura(null);
-            charlie.setPOSICION_Y_PISO((int)pelotaActual.getY());
+            charlie.setPOSICION_Y_PISO( (int) pelotaActual.getY() - pelotaActual.getHeight() + 40);
 
 //          las tres pelotas se deben mover a la izquierda
             pelotaActual.moverse(1);
@@ -126,12 +120,12 @@ public class Nivel3 extends Nivel {
 //      si la montura es nula y colisiona con pelota actual -> seteo pelotaActual como montura
         else if((pelotaActual.getColision().intersects(charlie.getColision())) && (charlie.getMontura() == null)) {
             charlie.setMontura(pelotaActual);
-            charlie.setPOSICION_Y_PISO((int) pelotaActual.getY() - pelotaActual.getHeight());
+            charlie.setPOSICION_Y_PISO( (int) pelotaActual.getY() - pelotaActual.getHeight() + 18);
         }
 //      si la montura es nula y colisiona con pelota siguiente -> seteo pelotaSiguiente como montura
         else if((pelotaSiguiente.getColision().intersects(charlie.getColision())) && (charlie.getMontura() == null)) {
             charlie.setMontura(pelotaSiguiente);
-            charlie.setPOSICION_Y_PISO((int) pelotaActual.getY() - pelotaActual.getHeight());
+            charlie.setPOSICION_Y_PISO( (int) pelotaActual.getY() - pelotaActual.getHeight() + 18);
 
             aux = pelotaActual;
             pelotaActual = pelotaSiguiente;
@@ -160,15 +154,16 @@ public class Nivel3 extends Nivel {
         pelotaAuxiliar.setColision(new Rectangle((int) pelotaAuxiliar.getX(), (int) pelotaAuxiliar.getY(), pelotaAuxiliar.getWidth(), pelotaAuxiliar.getHeight()));
         charlie.setColision(new Rectangle(new Rectangle((int) charlie.getX(),(int) charlie.getY(), charlie.getWidth(), charlie.getHeight())));
 
-        if((pelotas[0].getX() + pelotas[0].getWidth()) < cam.getX()) {
-            pelotas[0].setX(pelotas[2].getX() + 600);
-        } else if((pelotas[1].getX() + pelotas[1].getWidth()) < cam.getX()) {
-            pelotas[1].setX(pelotas[0].getX() + 800);
+        if((pelotas[0].getX() + pelotas[0].getWidth()) < (-cam.getX())) {
+            pelotas[0].setX(pelotas[2].getX() + pelotas[2].getWidth() + 350);
+        } else if((pelotas[1].getX() + pelotas[1].getWidth()) < (-cam.getX())) {
+            pelotas[1].setX(pelotas[0].getX() + pelotas[0].getWidth() + 200);
         }
-        else if((pelotas[2].getX() + pelotas[2].getWidth()) < cam.getX()) {
-            pelotas[2].setX(pelotas[1].getX() + 900);
+        else if((pelotas[2].getX() + pelotas[2].getWidth()) < (-cam.getX())) {
+            pelotas[2].setX(pelotas[1].getX() + pelotas[1].getWidth() + 250);
         }
     };
+
 
     public void reiniciarse() {
         this.iniciarse();

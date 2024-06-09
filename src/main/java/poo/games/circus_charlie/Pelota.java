@@ -8,7 +8,7 @@ public class Pelota extends Montura {
     final int DIRECCION_DERECHA = 0;
     final int DIRECCION_IZQUIERDA = 1;
 
-    private double desplazamiento = 1.0;
+    private double desplazamiento = 2;
 
     Pelota(String sprite) {
         super(sprite);
