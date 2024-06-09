@@ -32,8 +32,8 @@ public class CircusCharlie extends JGame{
     public CircusCharlie(){
         super("CircusCharlie", 800, 480);
 //      nivel = new Nivel1();
-//      nivel = new Nivel2();
-        nivel = new Nivel3();
+      nivel = new Nivel2();
+        //nivel = new Nivel3();
 //      nivel.getCharlie().quieto();
     };
 
