@@ -13,21 +13,34 @@ import java.awt.event.*;
 
 import java.util.*;
 
+
+
 public class CircusCharlie extends JGame{
     private Personaje heroe;
     private Nivel nivel;
-    private Integer nivelActual = 0;
+    public Integer ban = 1;
+
+
+    public Integer getBan() {
+        return ban;
+    }
+
+    public void setBan(Integer ban) {
+        this.ban = ban;
+    }
 
     public CircusCharlie(){
         super("CircusCharlie", 800, 480);
-        nivel = new Nivel1();
+//      nivel = new Nivel1();
 //      nivel = new Nivel2();
-//      nivel = new Nivel3();
+        nivel = new Nivel3();
 //      nivel.getCharlie().quieto();
     };
 
     public void gameStartup(){
-
+//        if() {
+//
+//        }
     };
 
     public void gameUpdate(double var1){
@@ -59,10 +72,6 @@ public class CircusCharlie extends JGame{
             }
         }
 
-        if(heroe.getColision().intersects(nivel.getMeta().getColision())) {
-            this.ganar();
-        }
-
         heroe.update(var1);
         cam.seguirPersonaje(heroe);
         nivel.update();
@@ -76,9 +85,6 @@ public class CircusCharlie extends JGame{
 
     };
 
-    public void ganar() {
-//
-    };
 
     public static void main(String[] args) {
         System.out.println("Circus Charlie");
