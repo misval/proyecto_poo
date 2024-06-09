@@ -14,7 +14,6 @@ import javax.swing.border.LineBorder;
 public class GamePlatform extends JFrame implements ActionListener {
 	private JFrame iniciarSesion;
 	private JTextField nombreTextField;
-//	public int north;
 	private ArrayList<Jugador> jugadores = new ArrayList<>();
 	private BufferedWriter escritorJugadores;
 	public Jugador jugadorActual;
@@ -310,7 +309,7 @@ public class GamePlatform extends JFrame implements ActionListener {
 		}
 
 		if (e.getActionCommand().equals("jugar circus charlie")) {
-			CircusCharlie juego = new CircusCharlie();
+			CircusCharlie juego = new CircusCharlie(jugadorActual);
 
 			Thread t = new Thread() {
 				public void run() {

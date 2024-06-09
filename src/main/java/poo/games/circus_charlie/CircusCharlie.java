@@ -4,6 +4,7 @@ import com.entropyinteractive.JGame;
 
 import com.entropyinteractive.Keyboard;
 
+import poo.games.Jugador;
 import poo.games.Personaje;
 import poo.games.Camara;
 
@@ -13,34 +14,27 @@ import java.awt.event.*;
 
 import java.util.*;
 
-
-
 public class CircusCharlie extends JGame{
     private Personaje heroe;
     private Nivel nivel;
-    public Integer ban = 1;
+    private Integer nivelActual = 0;
+    private Jugador jugadorActual;
+    private Integer vidasJugador = 3;
 
-
-    public Integer getBan() {
-        return ban;
-    }
-
-    public void setBan(Integer ban) {
-        this.ban = ban;
-    }
-
-    public CircusCharlie(){
+    public CircusCharlie(Jugador jugadorActual){
         super("CircusCharlie", 800, 480);
-//      nivel = new Nivel1();
-//      nivel = new Nivel2();
-        nivel = new Nivel3();
-//      nivel.getCharlie().quieto();
+        this.jugadorActual = jugadorActual;
+        this.gameStartup();
     };
 
     public void gameStartup(){
-//        if() {
-//
-//        }
+        if(nivelActual == 0) {
+            nivel = new Nivel1();
+        } else if(nivelActual == 1) {
+            nivel = new Nivel2();
+        } else if(nivelActual == 2) {
+            nivel = new Nivel3();
+        }
     };
 
     public void gameUpdate(double var1){
@@ -72,6 +66,10 @@ public class CircusCharlie extends JGame{
             }
         }
 
+        if(heroe.getColision().intersects(nivel.getMeta().getColision())) {
+            this.ganar();
+        }
+
         heroe.update(var1);
         cam.seguirPersonaje(heroe);
         nivel.update();
@@ -81,10 +79,11 @@ public class CircusCharlie extends JGame{
         nivel.draw(var1);
     };
  
-    public void gameShutdown(){
+    public void gameShutdown(){};
+
+    public void ganar() {
 
     };
-
 
     public static void main(String[] args) {
         System.out.println("Circus Charlie");
