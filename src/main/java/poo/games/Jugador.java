@@ -7,6 +7,11 @@ public class Jugador {
     int puntosPong;
     int puntosCharlie;
 
+    double contador=0;
+    protected String salto = new String("imagenes/SaltoMarron.gif");
+    protected String movimiento1 = new String("imagenes/MarronCamina1.gif");
+    protected String movimiento2 = new String("imagenes/MarronCamina2.gif");
+
     public String getNombre() {
         return nombre;
     }
