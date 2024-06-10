@@ -65,6 +65,7 @@ public class Personaje extends ObjetoGrafico {
 			estadoActual = ESTADO_SALTANDO;
 			velocityY = -12.0;
 			onGround = false;
+			this.setSprite("imagenes/Salta.png");
 		}
 	}
 
@@ -72,11 +73,13 @@ public class Personaje extends ObjetoGrafico {
 		if(velocityY < -6.0){
 			estadoActual = ESTADO_SALTANDO;
 			velocityY = -6.0;
+
 		}
 	}
 
 	public void quieto() {
 		estadoActual = ESTADO_QUIETO;
+		this.setSprite("imagenes/Camina1.png");
 	}
 
 	public void left() {
@@ -84,6 +87,7 @@ public class Personaje extends ObjetoGrafico {
 			velocityX = -4.0;
 			estadoActual = ESTADO_CAMINANDO;
 			direccionActual = DIRECCION_IZQUIERDA;
+			this.setSprite("imagenes/Camina1.png");
 		}
 	}
 
@@ -92,6 +96,7 @@ public class Personaje extends ObjetoGrafico {
 			velocityX = 4.0;
 			estadoActual = ESTADO_CAMINANDO;
 			direccionActual = DIRECCION_DERECHA;
+			this.setSprite("imagenes/Camina3.png");
 		}
 //		this.setX(punto.getX() + velocityX);
 	}
@@ -127,6 +132,7 @@ public class Personaje extends ObjetoGrafico {
             velocityY = 0.0;
             onGround = true;
 			estadoActual = ESTADO_QUIETO;
+			this.setSprite("imagenes/Camina2.png");
 		}
 	}
 

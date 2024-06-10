@@ -1,5 +1,9 @@
 package poo.games.circus_charlie;
 
+
+import poo.games.*;
+
+import java.awt.*;
 import poo.games.Camara;
 import poo.games.Fondo;
 import poo.games.Mundo;
@@ -39,17 +43,17 @@ public class Nivel2 extends Nivel {
         try(BufferedReader mapFile = new BufferedReader(new FileReader("src/main/resources/files/mapFile.txt"))) {
             if(mapFile.ready()) {
                 Integer pos1 = Integer.parseInt(mapFile.readLine());
-                monos[0] = new Mono("imagenes/AzulMono1.gif");
+                monos[0] = new Mono("imagenes/AzulMono2.gif");
                 monos[0].setX(cam.GetRegionVisibleX()+cam.getX());
                 monos[0].setY(270);
                 monos[0].setColision(new Rectangle((int) monos[0].getX(), (int) monos[0].getY(), monos[0].getWidth(), monos[0].getHeight()));
                 Integer pos2 = Integer.parseInt(mapFile.readLine());
-                monos[1] = new Mono("imagenes/AzulMono1.gif");
+                monos[1] = new Mono("imagenes/AzulMono2.gif");
                 monos[1].setX(cam.GetRegionVisibleX()/0.5+cam.getX());
                 monos[1].setY(270);
                 monos[1].setColision(new Rectangle((int)monos[1].getX(), (int) monos[1].getY(), monos[1].getWidth(), monos[1].getHeight()));
                 Integer pos3 = Integer.parseInt(mapFile.readLine());
-                monos[2] = new Mono("imagenes/AzulMono1.gif");
+                monos[2] = new Mono("imagenes/AzulMono2.gif");
                 monos[2].setX(cam.GetRegionVisibleX()/0.75+cam.getX());
                 monos[2].setY(270);
                 monos[2].setColision(new Rectangle((int) monos[2].getX(), (int) monos[2].getY(), monos[2].getWidth(), monos[2].getHeight()));
@@ -160,7 +164,7 @@ public class Nivel2 extends Nivel {
         } else if((monoAzul.getX() + monoAzul.getWidth()) < -cam.getX()) {
             monoAzul.setX(cam.GetRegionVisibleX()*2.5+-cam.getX());
         }
-
+System.out.println(monoAzul.getHeight());
 // Verificar y ajustar la posición de los enemigos para mantener la distancia mínima
 
 

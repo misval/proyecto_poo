@@ -31,6 +31,7 @@ public abstract class ObjetoGrafico {
             this.dimensiones = dimensiones;
             this.punto = punto;
             colision = new Rectangle(punto, dimensiones);
+
         } catch (Exception e) {
             System.out.println(e);
         }

@@ -4,7 +4,7 @@ import poo.games.*;
 
 import java.awt.*;
 
-public abstract class Nivel {
+public abstract class Nivel{
     protected Fondo fondo;
     protected Personaje charlie;
     protected Camara cam;
