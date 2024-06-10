@@ -71,6 +71,7 @@ public class Nivel2 extends Nivel {
         monoSiguiente = monos[1];
         monoAuxiliar = monos[2];
 
+
         charlie = new Personaje("imagenes/CharlieMuriendo.png");
 
 //      seteo la posicion Y de charlie dependiendo el Rectangle de la pelota y la posicion X se la doy a la pelota
@@ -113,6 +114,7 @@ public class Nivel2 extends Nivel {
                 this.reiniciarse();
             }
         }
+
 //      Si el charlie salta
         else if(charlie.getY() < charlie.getPOSICION_Y_PISO()) {
             charlie.setPOSICION_Y_PISO((int)monoActual.getY()-20);
@@ -127,6 +129,10 @@ public class Nivel2 extends Nivel {
         }if((monoAzul.getColision().intersects(charlie.getColision()))) {
             this.reiniciarse();
         }
+        monoSiguiente.animacion();
+        monoActual.animacion();
+        monoAuxiliar.animacion();
+        monoAzul.animacion();
 
         if(monoAzul.getColision().intersects(monoSiguiente.getColision()) || monoAzul.getColision().intersects(monoAuxiliar.getColision()) || monoAzul.getColision().intersects(monoActual.getColision())) {
             monoAzul.saltar();
@@ -164,7 +170,7 @@ public class Nivel2 extends Nivel {
         } else if((monoAzul.getX() + monoAzul.getWidth()) < -cam.getX()) {
             monoAzul.setX(cam.GetRegionVisibleX()*2.5+-cam.getX());
         }
-System.out.println(monoAzul.getHeight());
+
 // Verificar y ajustar la posición de los enemigos para mantener la distancia mínima
 
 

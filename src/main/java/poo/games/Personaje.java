@@ -27,6 +27,7 @@ public class Personaje extends ObjetoGrafico {
 	int direccionActual;
 	int estadoActual;
 	double tempVelocity;
+	double contador=0;
 
 	protected double velocityX = 4.0;
 	protected double velocityY = 0.0;
@@ -73,7 +74,7 @@ public class Personaje extends ObjetoGrafico {
 		if(velocityY < -6.0){
 			estadoActual = ESTADO_SALTANDO;
 			velocityY = -6.0;
-
+			this.setSprite("imagenes/Camina1.png");
 		}
 	}
 
@@ -87,7 +88,7 @@ public class Personaje extends ObjetoGrafico {
 			velocityX = -4.0;
 			estadoActual = ESTADO_CAMINANDO;
 			direccionActual = DIRECCION_IZQUIERDA;
-			this.setSprite("imagenes/Camina1.png");
+			animacion();
 		}
 	}
 
@@ -96,7 +97,7 @@ public class Personaje extends ObjetoGrafico {
 			velocityX = 4.0;
 			estadoActual = ESTADO_CAMINANDO;
 			direccionActual = DIRECCION_DERECHA;
-			this.setSprite("imagenes/Camina3.png");
+			animacion();
 		}
 //		this.setX(punto.getX() + velocityX);
 	}
@@ -132,14 +133,22 @@ public class Personaje extends ObjetoGrafico {
             velocityY = 0.0;
             onGround = true;
 			estadoActual = ESTADO_QUIETO;
-			this.setSprite("imagenes/Camina2.png");
 		}
 	}
 
 	private void rotarImagenGrados(double ang){
 			angulo +=ang;
 	}
+	public void animacion() {
+		contador++;
+		System.out.println(contador);
 
+		if(contador <= 7){
+			this.setSprite("imagenes/Camina1.png");
+		}else if(contador <= 14 && contador > 7){
+			this.setSprite("imagenes/Camina3.png");
+		}else contador = 0;
+	}
 //	 public void display(Graphics2D g2) {
 //		g2.drawImage(sprite,(int) this.getX(),(int) this.getY(),null);
 //		System.out.println(this.getY());

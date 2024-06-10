@@ -20,7 +20,7 @@ public class MonoAzul extends Obstaculo{
     protected String movimiento1 = new String("imagenes/AzulMono2.gif");
     protected String movimiento2 = new String("imagenes/AzulMono3.gif");
     protected String movimiento3 = new String("imagenes/AzulMono4.gif");
-
+    double contador=0;
     protected Dimension dimensiones;
     protected Point punto;
     protected Rectangle colision;
@@ -54,12 +54,20 @@ public class MonoAzul extends Obstaculo{
             this.setY(this.getY() + 5);
             alturaSalto = 0;
         }
-        System.out.println(getY());
         if(getY() > 272 && onGround) {
             setSprite(movimiento2);
             setSprite(movimiento3);
         }
 
+    }
+    public void animacion() {
+        contador++;
+        System.out.println(contador);
+        if(contador <= 20){
+            setSprite(movimiento1);
+        }else if(contador <= 40 && contador > 20){
+            setSprite(movimiento2);
+        }else contador = 0;
     }
     public void saltar() {
         if (!onGround) {

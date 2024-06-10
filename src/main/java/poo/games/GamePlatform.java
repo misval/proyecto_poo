@@ -175,7 +175,6 @@ public class GamePlatform extends JFrame implements ActionListener {
 					juego.run(1.0 / 60.0);
 				}
 			};
-
 			t.start();
 		}
 

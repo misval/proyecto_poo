@@ -7,7 +7,7 @@ public class Mono extends Obstaculo{
 
     final int DIRECCION_DERECHA = 0;
     final int DIRECCION_IZQUIERDA = 1;
-
+    double contador=0;
     private double desplazamiento;
     protected String salto = new String("imagenes/SaltoMarron.gif");
     protected String movimiento1 = new String("imagenes/MarronCamina1.gif");
@@ -32,8 +32,16 @@ public class Mono extends Obstaculo{
             this.setX(this.getX() + desplazamiento);
         } else if (direccion == DIRECCION_IZQUIERDA) {
             this.setX(this.getX() - desplazamiento);
-            setSprite(movimiento1);
-            setSprite(movimiento2);
         }
     }
+    public void animacion() {
+        contador++;
+        System.out.println(contador);
+        if(contador <= 20){
+            setSprite(movimiento1);
+        }else if(contador <= 40 && contador > 20){
+            setSprite(movimiento2);
+        }else contador = 0;
+    }
+
 }
