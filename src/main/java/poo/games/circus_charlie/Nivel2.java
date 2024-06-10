@@ -19,16 +19,18 @@ public class Nivel2 extends Nivel {
     private Boolean colsionMono = false;
     private Mono monoActual,monoSiguiente,monoAuxiliar;
     private MonoAzul monoAzul;
-    int soga = 270;
+    int soga = 270,flag=0;
     boolean bandera = false;
     private float AnchoTotal=1;
     public void reiniciarse() {
         this.iniciarse();
+        flag = 0;
     }
 
     Nivel2() {
         super();
         this.iniciarse();
+
     }
 
     public void iniciarse() {
@@ -40,19 +42,19 @@ public class Nivel2 extends Nivel {
         fondo = new Fondo("imagenes/FondoCharlieSoga.png");
         m.setLimitesMundo(fondo.getWidth(), fondo.getHeight());
 
-        try(BufferedReader mapFile = new BufferedReader(new FileReader("src/main/resources/files/mapFile.txt"))) {
-            if(mapFile.ready()) {
-                Integer pos1 = Integer.parseInt(mapFile.readLine());
+      //  try(BufferedReader mapFile = new BufferedReader(new FileReader("src/main/resources/files/mapFile.txt"))) {
+        //    if(mapFile.ready()) {
+               // Integer pos1 = Integer.parseInt(mapFile.readLine());
                 monos[0] = new Mono("imagenes/AzulMono2.gif");
                 monos[0].setX(cam.GetRegionVisibleX()+cam.getX());
                 monos[0].setY(270);
                 monos[0].setColision(new Rectangle((int) monos[0].getX(), (int) monos[0].getY(), monos[0].getWidth(), monos[0].getHeight()));
-                Integer pos2 = Integer.parseInt(mapFile.readLine());
+               // Integer pos2 = Integer.parseInt(mapFile.readLine());
                 monos[1] = new Mono("imagenes/AzulMono2.gif");
                 monos[1].setX(cam.GetRegionVisibleX()/0.5+cam.getX());
                 monos[1].setY(270);
                 monos[1].setColision(new Rectangle((int)monos[1].getX(), (int) monos[1].getY(), monos[1].getWidth(), monos[1].getHeight()));
-                Integer pos3 = Integer.parseInt(mapFile.readLine());
+                //Integer pos3 = Integer.parseInt(mapFile.readLine());
                 monos[2] = new Mono("imagenes/AzulMono2.gif");
                 monos[2].setX(cam.GetRegionVisibleX()/0.75+cam.getX());
                 monos[2].setY(270);
@@ -62,10 +64,15 @@ public class Nivel2 extends Nivel {
                 monoAzul.setX(cam.GetRegionVisibleX()*2.5+ -cam.getX());
                 monoAzul.setY(270);
                 monoAzul.setColision(new Rectangle((int)monoAzul.getX(), (int) monoAzul.getY(), monoAzul.getWidth(), monoAzul.getHeight()));
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+
+                meta = new Meta("imagenes/MetaNight.png");
+                meta.setY(265);
+                meta.setX(6700);
+                meta.setColision(new Rectangle((int) meta.getX(),(int) meta.getY(), meta.getWidth(), meta.getHeight()));
+           // }
+    //    } catch (IOException e) {
+      //      throw new RuntimeException(e);
+       // }
 //      creo variable pelotaActual
         monoActual = monos[0];
         monoSiguiente = monos[1];
@@ -76,7 +83,8 @@ public class Nivel2 extends Nivel {
 
 //      seteo la posicion Y de charlie dependiendo el Rectangle de la pelota y la posicion X se la doy a la pelota
 //      y despues a charlie, esta sera solo la primera vez, luego la pelota sigue a charlie
-        charlie.setX(cam.GetRegionVisibleX() / 2);
+       // charlie.setX(cam.GetRegionVisibleX() / 2);
+        charlie.setX(6600);
         charlie.setY(monoActual.getY()-20);
         charlie.setPOSICION_Y_PISO((int) monoActual.getY()-20);
         charlie.setColision(new Rectangle((int) charlie.getX(), (int) charlie.getY(), charlie.getWidth(), charlie.getHeight()));
@@ -86,6 +94,9 @@ public class Nivel2 extends Nivel {
     }
 
 
+    public boolean victoria(){
+        return (flag > 0)?true:false;
+    }
 
     @Override
     public void draw(Graphics2D g) {
@@ -94,12 +105,14 @@ public class Nivel2 extends Nivel {
         AnchoTotal = m.getWidth();
         fondo.display(g);
         m.display(g);
-        monoActual.display(g);
         charlie.display(g);
-        monoSiguiente.display(g);
-        monoAuxiliar.display(g);
-
-        monoAzul.display(g);
+        meta.display(g);
+        if(flag == 0){
+            monoActual.display(g);
+            monoSiguiente.display(g);
+            monoAuxiliar.display(g);
+            monoAzul.display(g);
+        }
 
         g.translate(-cam.getX(), -cam.getY());
     }
@@ -120,13 +133,13 @@ public class Nivel2 extends Nivel {
             charlie.setPOSICION_Y_PISO((int)monoActual.getY()-20);
         }
 //      si la montura es nula y colisiona con pelota actual -> seteo pelotaActual como montura
-        else if((monoActual.getColision().intersects(charlie.getColision()))) {
+        else if((monoActual.getColision().intersects(charlie.getColision())) && !this.victoria()) {
             this.reiniciarse();
-        }if((monoSiguiente.getColision().intersects(charlie.getColision()))) {
+        }if((monoSiguiente.getColision().intersects(charlie.getColision())) && !this.victoria()) {
             this.reiniciarse();
-        }if((monoAuxiliar.getColision().intersects(charlie.getColision()))) {
+        }if((monoAuxiliar.getColision().intersects(charlie.getColision())) && !this.victoria()) {
             this.reiniciarse();
-        }if((monoAzul.getColision().intersects(charlie.getColision()))) {
+        }if((monoAzul.getColision().intersects(charlie.getColision())) && !this.victoria()) {
             this.reiniciarse();
         }
         monoSiguiente.animacion();
@@ -169,6 +182,14 @@ public class Nivel2 extends Nivel {
             monos[2].setX(cam.GetRegionVisibleX()/0.75+ -cam.getX());
         } else if((monoAzul.getX() + monoAzul.getWidth()) < -cam.getX()) {
             monoAzul.setX(cam.GetRegionVisibleX()*2.5+-cam.getX());
+        }
+        if(charlie.getColision().intersects(meta.getColision()) || flag > 0){
+            charlie.animacionVictoria();
+            charlie.setPOSICION_Y_PISO((int)meta.getY()-meta.getHeight()-10);
+            charlie.setX((int)meta.getX()+meta.getWidth()/2-charlie.getWidth()/2);
+            flag++;
+            if(flag > 50)
+                reiniciarse();
         }
 
 // Verificar y ajustar la posición de los enemigos para mantener la distancia mínima

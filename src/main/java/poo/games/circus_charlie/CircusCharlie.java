@@ -17,7 +17,7 @@ import java.util.*;
 public class CircusCharlie extends JGame{
     private Personaje heroe;
     private Nivel nivel;
-    private Integer nivelActual = 0;
+    private Integer nivelActual = 1;
     private Jugador jugadorActual;
     private Integer vidasJugador = 3;
 

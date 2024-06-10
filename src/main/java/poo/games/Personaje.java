@@ -11,7 +11,7 @@ import java.net.*; //nuevo para sonido
 
 
 //import processing.core.*;
-///   http://jsfiddle.net/LyM87/
+/// http://jsfiddle.net/LyM87/
 /// https://stackoverflow.com/questions/37758061/rotate-a-buffered-image-in-java/37758533
 public class Personaje extends ObjetoGrafico {
 
@@ -28,6 +28,8 @@ public class Personaje extends ObjetoGrafico {
 	int estadoActual;
 	double tempVelocity;
 	double contador=0;
+	int flag = 0;
+
 
 	protected double velocityX = 4.0;
 	protected double velocityY = 0.0;
@@ -147,6 +149,15 @@ public class Personaje extends ObjetoGrafico {
 			this.setSprite("imagenes/Camina1.png");
 		}else if(contador <= 14 && contador > 7){
 			this.setSprite("imagenes/Camina3.png");
+		}else contador = 0;
+	}
+	public void animacionVictoria() {
+		contador++;
+		System.out.println(contador);
+		if(contador <= 11){
+			this.setSprite("imagenes/CharlieCelebrando1.png");
+		}else if(contador <= 22 && contador > 11){
+			this.setSprite("imagenes/CharlieCelebrando2.png");
 		}else contador = 0;
 	}
 //	 public void display(Graphics2D g2) {
