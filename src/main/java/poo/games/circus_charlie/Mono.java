@@ -19,14 +19,6 @@ public class Mono extends Obstaculo{
         desplazamiento = 1.0;
     };
 
-    public double getDesplazamiento() {
-        return desplazamiento;
-    }
-
-    public void setDesplazamiento(double desplazamiento) {
-        this.desplazamiento = desplazamiento;
-    }
-
     //  deberia recibir la direccion y el desplazamiento
     public void moverse(Integer direccion) {
         if(direccion == DIRECCION_DERECHA) {

@@ -139,10 +139,6 @@ public class CircusCharlie extends JGame{
         this.puntosTotales = puntosTotales;
     }
 
-    public Integer getVidasJugador() {
-        return vidasJugador;
-    }
-
     public void setVidasJugador(Integer vidasJugador) {
         this.vidasJugador = vidasJugador;
     }

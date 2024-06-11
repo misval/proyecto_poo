@@ -57,13 +57,6 @@ public abstract class ObjetoGrafico {
         }  
     }
 
-    public void display(Graphics2D g,int cantFrames ,int width, int height) {
-
-        for(int i = 0; i < cantFrames; i++){
-            g.drawImage(sprite.getSubimage(i * width, 0, width, height), (int) this.getX(), (int) this.getY(), null);
-        }
-    }
-
     public void display(Graphics2D g) {
         g.drawImage(sprite, (int) this.getX(), (int) this.getY(), null);
     }
@@ -80,16 +73,8 @@ public abstract class ObjetoGrafico {
         return (int)dimensiones.getWidth();
     }
 
-    public void setAncho(int width) {
-        dimensiones.setSize(width, dimensiones.getHeight());
-    }
-
     public int getHeight() {
         return (int)dimensiones.getHeight();
-    }
-
-    public void setHeight(int height) {
-        dimensiones.setSize(dimensiones.getWidth(), height);
     }
 
     public double getX() {
