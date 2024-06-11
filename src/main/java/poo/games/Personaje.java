@@ -1,19 +1,9 @@
 package poo.games;
 
-import java.awt.*;
-import java.awt.geom.*;
 import poo.games.circus_charlie.Montura;
 
-import java.awt.image.*;
-import javax.imageio.*;
-import java.io.*;
-import java.net.*; //nuevo para sonido
-
-
-//import processing.core.*;
-///   http://jsfiddle.net/LyM87/
-/// https://stackoverflow.com/questions/37758061/rotate-a-buffered-image-in-java/37758533
 public class Personaje extends ObjetoGrafico {
+	private double contador =0;
 
 	private boolean onGround = false;
 
@@ -65,6 +55,7 @@ public class Personaje extends ObjetoGrafico {
 			estadoActual = ESTADO_SALTANDO;
 			velocityY = -12.0;
 			onGround = false;
+			this.setSprite("imagenes/Salta.png");
 		}
 	}
 
@@ -72,11 +63,13 @@ public class Personaje extends ObjetoGrafico {
 		if(velocityY < -6.0){
 			estadoActual = ESTADO_SALTANDO;
 			velocityY = -6.0;
+			this.setSprite("imagenes/Camina1.png");
 		}
 	}
 
 	public void quieto() {
 		estadoActual = ESTADO_QUIETO;
+		this.setSprite("imagenes/Camina1.png");
 	}
 
 	public void left() {
@@ -84,6 +77,7 @@ public class Personaje extends ObjetoGrafico {
 			velocityX = -4.0;
 			estadoActual = ESTADO_CAMINANDO;
 			direccionActual = DIRECCION_IZQUIERDA;
+			animacion();
 		}
 	}
 
@@ -92,6 +86,7 @@ public class Personaje extends ObjetoGrafico {
 			velocityX = 4.0;
 			estadoActual = ESTADO_CAMINANDO;
 			direccionActual = DIRECCION_DERECHA;
+			animacion();
 		}
 //		this.setX(punto.getX() + velocityX);
 	}
@@ -134,6 +129,28 @@ public class Personaje extends ObjetoGrafico {
 			angulo +=ang;
 	}
 
+	public void animacion() {
+		contador++;
+
+		if(contador <= 7){
+			this.setSprite("imagenes/Camina1.png");
+		}else if(contador <= 14 && contador > 7){
+			this.setSprite("imagenes/Camina3.png");
+		}else contador = 0;
+	}
+
+	public void animacionVictoria() {
+		contador++;
+		if(contador <= 11){
+			this.setSprite("imagenes/CharlieCelebrando1.png");
+		}else if(contador <= 22 && contador > 11){
+			this.setSprite("imagenes/CharlieCelebrando2.png");
+		}else contador = 0;
+	}
+
+	public void animacionMuerte() {
+		this.setSprite("imagenes/CharlieMuriendo.png");
+	}
 //	 public void display(Graphics2D g2) {
 //		g2.drawImage(sprite,(int) this.getX(),(int) this.getY(),null);
 //		System.out.println(this.getY());

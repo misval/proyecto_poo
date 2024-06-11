@@ -6,15 +6,6 @@ import poo.games.Mundo;
 import poo.games.Personaje;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-
-// TODO 5: QUE PASA SI GANO?
-
-// TODO 4: IMPLEMENTAR MARCADOR DE PUNTOS Y VIDAS
-
 
 public class Nivel3 extends Nivel {
     private Pelota[] pelotas = new Pelota[10];
@@ -24,9 +15,11 @@ public class Nivel3 extends Nivel {
     private Pelota pelotaSiguiente;
     private Pelota pelotaAuxiliar;
 
-    Nivel3() {
+    Nivel3(Integer vidas, Integer puntosTotales) {
         super();
-
+        this.setVidas(vidas);
+        this.setPuntosTotales(puntosTotales);
+        this.reiniciarBonus();
         this.iniciarse();
     }
 
@@ -87,14 +80,18 @@ public class Nivel3 extends Nivel {
         pelotaAuxiliar.display(g);
         meta.display(g);
 
+        g.setColor(Color.white);
+        g.setFont(new Font("Retro Gaming", Font.PLAIN, 18));
+        g.drawString("Vidas  "+this.getVidas().toString(),(int)-cam.getX()+40, (int)fondo.getHeight()-420);
+        g.drawString("Puntos  "+this.getPuntosTotales().toString(),(int)-cam.getX() +140, (int)fondo.getHeight()-420);
+        g.drawString("Bonus  "+ this.getBonus(),(int)(-cam.getX())+670, (int)fondo.getHeight()-420);
+
         g.translate(-cam.getX(), -cam.getY());
     }
 
     public void update() {
-        if(charlie.getColision().intersects(meta.getColision())) {
-        }
 //      Si chocan las dos pelotas
-        else if(pelotaActual.getColision().intersects(pelotaSiguiente.getColision()) || colsionPelotas) {
+        if(pelotaActual.getColision().intersects(pelotaSiguiente.getColision()) || colsionPelotas) {
             colsionPelotas = true;
 
             pelotaActual.setDesplazamiento(4);
@@ -110,7 +107,7 @@ public class Nivel3 extends Nivel {
         else if(charlie.getY() < charlie.getPOSICION_Y_PISO()) {
             // la montura es nula
             charlie.setMontura(null);
-            charlie.setPOSICION_Y_PISO( (int) pelotaActual.getY() - pelotaActual.getHeight() + 40);
+            charlie.setPOSICION_Y_PISO( (int) pelotaActual.getY() - pelotaActual.getHeight() + 60);
 
 //          las tres pelotas se deben mover a la izquierda
             pelotaActual.moverse(1);
@@ -124,6 +121,7 @@ public class Nivel3 extends Nivel {
         }
 //      si la montura es nula y colisiona con pelota siguiente -> seteo pelotaSiguiente como montura
         else if((pelotaSiguiente.getColision().intersects(charlie.getColision())) && (charlie.getMontura() == null)) {
+            this.setPuntosTotales(100);
             charlie.setMontura(pelotaSiguiente);
             charlie.setPOSICION_Y_PISO( (int) pelotaActual.getY() - pelotaActual.getHeight() + 18);
 
@@ -131,6 +129,7 @@ public class Nivel3 extends Nivel {
             pelotaActual = pelotaSiguiente;
             pelotaSiguiente = pelotaAuxiliar;
             pelotaAuxiliar = aux;
+
         }
 //      charlie perfora posicion y + height de la pelota
         else if((charlie.getY() < (pelotaActual.getY() + pelotaActual.getHeight())) && (charlie.getMontura() == null)) {
@@ -154,6 +153,8 @@ public class Nivel3 extends Nivel {
         pelotaAuxiliar.setColision(new Rectangle((int) pelotaAuxiliar.getX(), (int) pelotaAuxiliar.getY(), pelotaAuxiliar.getWidth(), pelotaAuxiliar.getHeight()));
         charlie.setColision(new Rectangle(new Rectangle((int) charlie.getX(),(int) charlie.getY(), charlie.getWidth(), charlie.getHeight())));
 
+        this.animacionBonus();
+
         if((pelotas[0].getX() + pelotas[0].getWidth()) < (-cam.getX())) {
             pelotas[0].setX(pelotas[2].getX() + pelotas[2].getWidth() + 350);
         } else if((pelotas[1].getX() + pelotas[1].getWidth()) < (-cam.getX())) {
@@ -164,8 +165,9 @@ public class Nivel3 extends Nivel {
         }
     };
 
-
     public void reiniciarse() {
+        this.setVidas(this.getVidas()-1);
+        this.reiniciarBonus();
         this.iniciarse();
     }
 }

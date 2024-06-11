@@ -4,7 +4,7 @@ import poo.games.ObjetoGrafico;
 
 import java.awt.*;
 
-public abstract class Obstaculo extends ObjetoGrafico{
+public abstract class Obstaculo extends ObjetoGrafico {
 
     Obstaculo(String sprite){
         super(sprite);
