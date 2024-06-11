@@ -65,11 +65,11 @@ public class CircusCharlie extends JGame{
                 stop();
             }
         }
-
+        /*     
         if(heroe.getColision().intersects(nivel.getMeta().getColision())) {
             this.ganar();
         }
-
+        */
         heroe.update(var1);
         cam.seguirPersonaje(heroe);
         nivel.update();
