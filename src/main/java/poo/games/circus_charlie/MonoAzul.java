@@ -6,8 +6,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class MonoAzul extends Obstaculo{
-
+public class MonoAzul extends Obstaculo {
     final int DIRECCION_DERECHA = 0;
     final int DIRECCION_IZQUIERDA = 1;
 
@@ -21,21 +20,17 @@ public class MonoAzul extends Obstaculo{
     protected String movimiento2 = new String("imagenes/AzulMono3.gif");
     protected String movimiento3 = new String("imagenes/AzulMono4.gif");
     double contador=0;
-    protected Dimension dimensiones;
-    protected Point punto;
-    protected Rectangle colision;
+    // Variable para controlar la altura máxima del salto
+    int alturaSalto = 0;
+    final double maxAlturaSalto = 25;
 
     MonoAzul(String movimiento3) {
         super(movimiento3);
         desplazamiento = 3;
         this.moverse(1);
     };
-    // Variable para controlar la altura máxima del salto
 
-    int alturaSalto = 0;
-    final double maxAlturaSalto = 25;
     // Lógica de movimiento del mono azul
-
     public void mover() {
         if (onGround) {
             if (alturaSalto < maxAlturaSalto) {
@@ -74,14 +69,6 @@ public class MonoAzul extends Obstaculo{
         if (!onGround) {
             onGround = true;
         }
-    }
-
-    public int getPOSICION_Y_PISO(){
-        return POSICION_Y_PISO;
-    }
-
-    public double getDesplazamiento() {
-        return desplazamiento;
     }
 
     public void setDesplazamiento(double desplazamiento) {

@@ -11,7 +11,7 @@ public class Nivel2 extends Nivel {
     private Boolean colsionMono = false;
     private Mono monoActual,monoSiguiente,monoAuxiliar;
     private MonoAzul monoAzul;
-    int tiempoColision = 0,flag=0;
+    int tiempoColision = 0;
 
     Nivel2(Integer vidasJugador, Integer puntosTotales) {
         super();
@@ -22,7 +22,6 @@ public class Nivel2 extends Nivel {
     }
 
     public void reiniciarse() {
-        flag = 0;
         tiempoColision = 0;
         this.setVidas(this.getVidas()-1);
         this.reiniciarBonus();
