@@ -4,6 +4,11 @@ import poo.games.Fondo;
 import poo.games.FXPlayer;
 
 import com.entropyinteractive.*;
+import poo.games.Jugador;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -24,6 +29,7 @@ public class Pong extends JGame{
     Pelota pelota;
     Fondo fondo;
     BufferedImage lineaRed;
+    Boolean musica;
 
     FXPlayer SonidoPong;
 
@@ -78,6 +84,28 @@ public class Pong extends JGame{
             punto = new Point(0, 30);
             fondo = new Fondo(imagenFondo, tamanio, punto);
             fondo.getBordeInf().setLocation(0, this.getHeight()-15);
+
+
+            try {
+                // Crear un lector para el archivo de entrada
+                BufferedReader configuracionFile = new BufferedReader(new FileReader("src/main/resources/files/configuracion.txt"));
+                String linea = configuracionFile.readLine();
+
+                if(linea.equals("false")) {
+                    setMusica(false);
+                }
+
+                configuracionFile.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            if(!musica) {
+                FXPlayer.SOUND_TRACK.SwitchingLoop();
+                FXPlayer.GANE.SwitchingMUTE();
+                FXPlayer.REVOTA.SwitchingMUTE();
+                FXPlayer.START.SwitchingMUTE();
+            }
         }
         catch(Exception e){
             System.out.println(e);
@@ -92,6 +120,7 @@ public class Pong extends JGame{
         Keyboard keyboard = this.getKeyboard();
 
 //      DIRECCION DE LA PALOTA
+
 
         if(direccionPelota == 0){// Y = SUBIENDO X = IZQUIERDA
             pelota.moverseIzquierda(PELOTA_VELOCIDAD * delta);
@@ -230,4 +259,11 @@ public class Pong extends JGame{
 
     };
 
+    public Boolean getMusica() {
+        return musica;
+    }
+
+    public void setMusica(Boolean musica) {
+        this.musica = musica;
+    }
 }

@@ -6,6 +6,5 @@ public class Leon extends Montura{
         super(sprite);
     }
 
-
     public void moverse(Integer desplazamiento){};
 }

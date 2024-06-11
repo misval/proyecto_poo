@@ -5,18 +5,21 @@ import poo.games.pong.Pong;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
-import java.io.*;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 
 public class GamePlatform extends JFrame implements ActionListener {
-	private JFrame iniciarSesion;
+	private JFrame iniciarSesionFrame;
+	private JFrame configFrame;
 	private JTextField nombreTextField;
-	private ArrayList<Jugador> jugadores = new ArrayList<>();
-	private BufferedWriter escritorJugadores;
-	public Jugador jugadorActual;
+	public Jugador jugadorActual = new Jugador();
+	private JTextField inputJumpKey;
+	private JTextField inputRightKey;
+	private JTextField inputLeftKey;
+	private JTextField inputEscKey;
+	private JTextField inputPauseKey;
+	private JFrame errorFrame;
 
 	public GamePlatform() {
 		super("Nintendo Platform");
@@ -81,12 +84,16 @@ public class GamePlatform extends JFrame implements ActionListener {
 		configuraciones.setForeground(Color.WHITE);
 		configuraciones.setBorder(new LineBorder(Color.WHITE, 1));
 
+		configuraciones.addActionListener(this);
+
 //		RANKING
-		JButton rankings = new JButton("Rankings");
+		JButton rankings = new JButton("Ranking");
 		rankings.setFont(retroFont);
 		rankings.setBackground(Color.BLACK);
 		rankings.setForeground(Color.WHITE);
 		rankings.setBorder(new LineBorder(Color.WHITE, 1));
+
+		rankings.addActionListener(this);
 
 		buttonsMenuIzquierdo.add(rankings);
 		buttonsMenuIzquierdo.add(configuraciones);
@@ -100,7 +107,6 @@ public class GamePlatform extends JFrame implements ActionListener {
 		menuVeticalIzquierdo.add(emptyPanel, BorderLayout.CENTER);
 		menuVeticalIzquierdo.add(buttonsMenuIzquierdo, BorderLayout.SOUTH);
 
-
 //		NAVBAR
 		navBar.setLayout(new BorderLayout());
 		Panel navBarItems = new Panel();
@@ -112,6 +118,7 @@ public class GamePlatform extends JFrame implements ActionListener {
 		JButton iniciarSesionButton = new JButton("Iniciar sesion");
 		iniciarSesionButton.setFont(retroFont);
 		iniciarSesionButton.setForeground(Color.WHITE);
+		iniciarSesionButton.setBackground(Color.BLACK);
 		iniciarSesionButton.setBorder(new LineBorder(Color.WHITE, 1));
 
 		iniciarSesionButton.addActionListener(this);
@@ -219,81 +226,269 @@ public class GamePlatform extends JFrame implements ActionListener {
 		juegos.setMaximumSize(new Dimension(1000, 400));
 
 //      VENTANA INICIAR SESION
-		iniciarSesion = new JFrame("Iniciar sesion");
-		iniciarSesion.setSize(500, 500);
-		iniciarSesion.setLocation(430, 160);
+		iniciarSesionFrame = new JFrame("Iniciar sesion");
+		iniciarSesionFrame.setSize(250, 250);
+		iniciarSesionFrame.setLocation(570, 260);
 
 		JPanel containerIniciarSesion = new JPanel();
 		containerIniciarSesion.setLayout(new GridLayout(3, 1));
 
-		JLabel nombreLabel = new JLabel("Ingresa tu nombre: ");
+		JLabel nombreLabel = new JLabel("Nombre: ");
+		nombreLabel.setFont(retroFont);
+		nombreLabel.setForeground(Color.white);
+		nombreLabel.setSize(250, 100);
 		nombreTextField = new JTextField();
 		JButton ingresarNombreButton = new JButton("Ingresar");
-
+		ingresarNombreButton.setFont(retroFont);
+		ingresarNombreButton.setForeground(Color.white);
+		ingresarNombreButton.setBackground(Color.BLACK);
 		ingresarNombreButton.addActionListener(this);
 
-		containerIniciarSesion.add(nombreLabel);
-		containerIniciarSesion.add(nombreTextField);
-		containerIniciarSesion.add(ingresarNombreButton);
+//		CONTENEDOR DEL NOMBRE LABEL
+		JPanel containerNombreLabel = new JPanel();
+		containerNombreLabel.setLayout(new BorderLayout());
 
-		iniciarSesion.add(containerIniciarSesion);
+		JPanel auxPanelnl1 = new JPanel();
+		auxPanelnl1.setBackground(Color.BLACK);
+		JPanel auxPanelnl3 = new JPanel();
+		auxPanelnl3.setBackground(Color.BLACK);
+		JPanel auxPanelnl4 = new JPanel();
+		auxPanelnl4.setBackground(Color.BLACK);
 
-//		bucle for recorriendo las lineas de un archivo y aniadiendo el jugador con sus puntajes
-		try {
-			// Crear un lector para el archivo de entrada
-			BufferedReader lectorJugadores = new BufferedReader(new FileReader("src/main/resources/files/jugadores.txt"));
+		containerNombreLabel.add(auxPanelnl1, BorderLayout.NORTH);
+		containerNombreLabel.add(nombreLabel, BorderLayout.CENTER);
+		containerNombreLabel.add(auxPanelnl3, BorderLayout.EAST);
+		containerNombreLabel.add(auxPanelnl4, BorderLayout.WEST);
 
-			String linea;
-			Integer countLines = 1;
-			Jugador j = new Jugador();
-			while ((linea = lectorJugadores.readLine()) != null) {
-				if(countLines > 3) {
-					jugadores.add(j);
-					countLines = 1;
-				}
-				if(countLines == 1) {
-					j.setNombre(linea);
-				}
-				if(countLines == 2) {
-					j.setPuntosPong(Integer.parseInt(linea));
-				}
-				if(countLines == 3) {
-					j.setPuntosCharlie(Integer.parseInt(linea));
-				}
+//		CONTENEDOR DEL INPUT NOMBRE
+		JPanel containerNombreInput = new JPanel();
+		containerNombreInput.setLayout(new BorderLayout());
+
+		JPanel auxPanelni2 = new JPanel();
+		auxPanelni2.setBackground(Color.BLACK);
+		JPanel auxPanelni3 = new JPanel();
+		auxPanelni3.setBackground(Color.BLACK);
+		JPanel auxPanelni4 = new JPanel();
+		auxPanelni4.setBackground(Color.BLACK);
+
+		containerNombreInput.add(nombreTextField, BorderLayout.CENTER);
+		containerNombreInput.add(auxPanelni2, BorderLayout.SOUTH);
+		containerNombreInput.add(auxPanelni3, BorderLayout.EAST);
+		containerNombreInput.add(auxPanelni4, BorderLayout.WEST);
+
+//		CONTENEDOR DEL NOMBRE BUTTON
+		JPanel containerNombreButton = new JPanel();
+		containerNombreButton.setLayout(new BorderLayout());
+
+		JPanel auxPanelnb2 = new JPanel();
+		auxPanelnb2.setBackground(Color.BLACK);
+		JPanel auxPanelnb3 = new JPanel();
+		auxPanelnb3.setBackground(Color.BLACK);
+		JPanel auxPanelnb4 = new JPanel();
+		auxPanelnb4.setBackground(Color.BLACK);
+
+		containerNombreButton.add(ingresarNombreButton, BorderLayout.CENTER);
+		containerNombreButton.add(auxPanelnb2, BorderLayout.SOUTH);
+		containerNombreButton.add(auxPanelnb3, BorderLayout.EAST);
+		containerNombreButton.add(auxPanelnb4, BorderLayout.WEST);
+
+		containerNombreLabel.setBackground(Color.BLACK);
+
+		containerIniciarSesion.add(containerNombreLabel);
+		containerIniciarSesion.add(containerNombreInput);
+		containerIniciarSesion.add(containerNombreButton);
+
+		iniciarSesionFrame.add(containerIniciarSesion);
+
+//		VENTANA CONFIGURACIONES
+		configFrame = new JFrame("Configuraciones");
+		configFrame.setSize(300, 350);
+		configFrame.setLocation(540, 200);
+
+		JPanel mainContainerConfigGrid = new JPanel();
+		mainContainerConfigGrid.setLayout(new GridLayout(7, 2, 0, 10));
+
+		JPanel mainContainerConfig = new JPanel();
+		mainContainerConfig.setLayout(new BorderLayout());
+
+		JPanel mainContainerConfigInner = new JPanel();
+		mainContainerConfigInner.setLayout(new BorderLayout());
+
+		inputJumpKey = new JTextField();
+		inputJumpKey.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				String keyCode = Integer.toString(e.getKeyCode());
+				inputJumpKey.setText(keyCode);
 			}
+		});
 
-			lectorJugadores.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		inputRightKey = new JTextField();
+		inputRightKey.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				String keyCode = Integer.toString(e.getKeyCode());
+				inputRightKey.setText(keyCode);
+			}
+		});
+
+		inputLeftKey = new JTextField();
+		inputLeftKey.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				String keyCode = Integer.toString(e.getKeyCode());
+				inputLeftKey.setText(keyCode);
+			}
+		});
+
+		inputEscKey = new JTextField();
+		inputEscKey.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				String keyCode = Integer.toString(e.getKeyCode());
+				inputEscKey.setText(keyCode);
+			}
+		});
+
+		inputPauseKey = new JTextField();
+		inputPauseKey.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				String keyCode = Integer.toString(e.getKeyCode());
+				inputPauseKey.setText(keyCode);
+			}
+		});
+
+		JCheckBox musicCheckbox = new JCheckBox();
+		musicCheckbox.setBackground(Color.BLACK);
+
+		JLabel musicaLabel = new JLabel("Musica");
+		musicaLabel.setForeground(Color.WHITE);
+		musicaLabel.setFont(retroFont);
+		JLabel jumpLabel = new JLabel("Saltar");
+		jumpLabel.setForeground(Color.WHITE);
+		jumpLabel.setFont(retroFont);
+		JLabel rightLabel = new JLabel("Derecha");
+		rightLabel.setForeground(Color.WHITE);
+		rightLabel.setFont(retroFont);
+		JLabel leftLabel = new JLabel("Izquierda");
+		leftLabel.setForeground(Color.WHITE);
+		leftLabel.setFont(retroFont);
+		JLabel exitLabel = new JLabel("Salir");
+		exitLabel.setForeground(Color.WHITE);
+		exitLabel.setFont(retroFont);
+		JLabel pauseLabel = new JLabel("Pausa");
+		pauseLabel.setForeground(Color.WHITE);
+		pauseLabel.setFont(retroFont);
+
+		JButton saveConfig = new JButton("Guardar");
+		saveConfig.setBackground(Color.BLACK);
+		saveConfig.setBorder(new LineBorder(Color.WHITE));
+		saveConfig.setFont(retroFont);
+		saveConfig.setForeground(Color.WHITE);
+
+		saveConfig.addActionListener(this);
+
+		mainContainerConfigGrid.add(musicaLabel);
+		mainContainerConfigGrid.add(musicCheckbox);
+		mainContainerConfigGrid.add(jumpLabel);
+		mainContainerConfigGrid.add(inputJumpKey);
+		mainContainerConfigGrid.add(rightLabel);
+		mainContainerConfigGrid.add(inputRightKey);
+		mainContainerConfigGrid.add(leftLabel);
+		mainContainerConfigGrid.add(inputLeftKey);
+		mainContainerConfigGrid.add(exitLabel);
+		mainContainerConfigGrid.add(inputEscKey);
+		mainContainerConfigGrid.add(pauseLabel);
+		mainContainerConfigGrid.add(inputPauseKey);
+
+		JPanel auxPanelConf5 = new JPanel();
+		auxPanelConf5.setBackground(Color.BLACK);
+
+		mainContainerConfigGrid.add(auxPanelConf5);
+		mainContainerConfigGrid.add(saveConfig);
+		mainContainerConfigGrid.setBackground(Color.BLACK);
+
+		mainContainerConfigInner.add(mainContainerConfigGrid, BorderLayout.CENTER);
+		mainContainerConfigInner.setBackground(Color.BLACK);
+
+		JPanel auxPanelConf1 = new JPanel();
+		auxPanelConf1.setBackground(Color.BLACK);
+		JPanel auxPanelConf2 = new JPanel();
+		auxPanelConf2.setBackground(Color.BLACK);
+		JPanel auxPanelConf3 = new JPanel();
+		auxPanelConf3.setBackground(Color.BLACK);
+		JPanel auxPanelConf4 = new JPanel();
+		auxPanelConf4.setBackground(Color.BLACK);
+
+		mainContainerConfig.add(auxPanelConf1, BorderLayout.NORTH);
+		mainContainerConfig.add(auxPanelConf2, BorderLayout.SOUTH);
+		mainContainerConfig.add(auxPanelConf3, BorderLayout.WEST);
+		mainContainerConfig.add(auxPanelConf4, BorderLayout.EAST);
+		mainContainerConfig.add(mainContainerConfigInner, BorderLayout.CENTER);
+
+		configFrame.add(mainContainerConfig);
+
+//		VENTANA ERROR
+		errorFrame = new JFrame("Error");
+		errorFrame.setSize(350, 80);
+		errorFrame.setLocation(540, 200);
+
+		JPanel errorContainer = new JPanel();
+		errorContainer.setLayout(new BorderLayout());
+
+		JPanel auxError1 = new JPanel();
+		auxError1.setBackground(Color.RED);
+		JPanel auxError2 = new JPanel();
+		auxError2.setBackground(Color.RED);
+		JPanel auxError3 = new JPanel();
+		auxError3.setBackground(Color.RED);
+		JPanel auxError4 = new JPanel();
+		auxError4.setBackground(Color.RED);
+
+		JLabel errorLabel = new JLabel("Error: debe iniciar sesion");
+		errorLabel.setBackground(Color.RED);
+		errorLabel.setFont(retroFont);
+		errorLabel.setForeground(Color.WHITE);
+
+		errorContainer.add(auxError1, BorderLayout.NORTH);
+		errorContainer.add(auxError2, BorderLayout.SOUTH);
+		errorContainer.add(auxError3, BorderLayout.WEST);
+		errorContainer.add(auxError4, BorderLayout.EAST);
+		errorContainer.add(errorLabel, BorderLayout.CENTER);
+		errorContainer.setBackground(Color.RED);
+
+		errorFrame.add(errorContainer);
 	}
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equals("Iniciar sesion")) {
-			iniciarSesion.setVisible(true);
+			iniciarSesionFrame.setVisible(true);
+		}
+
+		if (e.getActionCommand().equals("Ranking")) {
+			Ranking ranking = new Ranking();
+			ranking.setVisible(true);
+		}
+
+		if (e.getActionCommand().equals("Configuraciones")) {
+			configFrame.setVisible(true);
+		}
+
+		if (e.getActionCommand().equals("Guardar")) {
+			configFrame.setVisible(false);
 		}
 
 		if (e.getActionCommand().equals("Ingresar")) {
-//			sacar valor del text field
-// 			recorrer el arreglo jugadores y me fijo si ya existe el jugador
-//			seteo el jugadoractual con el jugador encontrado o con un nuevo jugador
-			boolean nuevoJugador = true;
 
-			for(Jugador j : jugadores) {
-				if(j.nombre.equals(nombreTextField.getText())) {
-					jugadorActual = j;
-					nuevoJugador = false;
-				}
-			}
-
-			if(nuevoJugador) {
-				jugadorActual = new Jugador();
+			if(nombreTextField.getText().isBlank()) {
+				jugadorActual.setNombre("invitado");
+			} else {
 				jugadorActual.setNombre(nombreTextField.getText());
-				jugadorActual.setPuntosCharlie(0);
-				jugadorActual.setPuntosPong(0);
 			}
+			jugadorActual.setPuntosCharlie(0);
 
-			iniciarSesion.dispose();
+			iniciarSesionFrame.dispose();
 		}
 
 		if (e.getActionCommand().equals("jugar pong")) {
@@ -309,31 +504,24 @@ public class GamePlatform extends JFrame implements ActionListener {
 		}
 
 		if (e.getActionCommand().equals("jugar circus charlie")) {
-			CircusCharlie juego = new CircusCharlie(jugadorActual);
+			if(jugadorActual.getNombre() == null) {
+				errorFrame.setVisible(true);
+			} else {
+				CircusCharlie juego = new CircusCharlie(jugadorActual);
 
-			Thread t = new Thread() {
-				public void run() {
-					juego.run(1.0 / 60.0);
-				}
-			};
+				Thread t = new Thread() {
+					public void run() {
+						juego.run(1.0 / 60.0);
+					}
+				};
 
-			t.start();
+				t.start();
+			}
 		}
 	}
 
 	public static void main(String[] args) {
 		GamePlatform gamesWindow = new GamePlatform();
 		gamesWindow.setVisible(true);
-
-//
-//		int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
-//		int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
-//
-//		int width = gamesWindow.getWidth();
-//		int height = gamesWindow.getHeight();
-//
-//		gamesWindow.north = ((screenWidth - width)/2);
-
 	}
-
 }
