@@ -24,7 +24,7 @@ public class Nivel3 extends Nivel {
     public void iniciarse() {
         Mundo m = Mundo.getInstance();
         for(int i = 0; i < pelotas.length; i++) {
-            pelotas[i] = new Pelota("imagenes/pelotaCharlie2.jpg");
+            pelotas[i] = new Pelota("imagenes/pelotaCharlie2.png");
             pelotas[i].setY(339);
         }
 

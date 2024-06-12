@@ -88,12 +88,16 @@ public class Aro {
     //  deberia recibir la direccion y el desplazamiento
     public void moverse(Integer direccion) {
         if(direccion == DIRECCION_DERECHA) {
-            mitadAtras.setX(mitadAtras.getX() + desplazamiento);
-            mitadAdelante.setX(mitadAdelante.getX() + desplazamiento);
+            mitadAtras.moverse(direccion);
+            mitadAdelante.moverse(direccion);
+            //mitadAtras.setX(mitadAtras.getX() + desplazamiento);
+            //mitadAdelante.setX(mitadAdelante.getX() + desplazamiento);
             mitadAdelante.getColision().setLocation((int)(mitadAdelante.getColision().getX()+desplazamiento), (int)mitadAdelante.getColision().getY());
         } else if (direccion == DIRECCION_IZQUIERDA) {
-            mitadAtras.setX(mitadAtras.getX() - desplazamiento);
-            mitadAdelante.setX(mitadAdelante.getX() - desplazamiento);
+            mitadAtras.moverse(direccion);
+            mitadAdelante.moverse(direccion);
+            //mitadAtras.setX(mitadAtras.getX() - desplazamiento);
+            //mitadAdelante.setX(mitadAdelante.getX() - desplazamiento);
             mitadAdelante.getColision().setLocation((int)(mitadAdelante.getColision().getX()-desplazamiento), (int)mitadAdelante.getColision().getY());
         }
     }

@@ -67,7 +67,8 @@ public class Nivel2 extends Nivel {
 
         charlie = new Personaje("imagenes/CharlieMuriendo.png");
 
-        charlie.setX(cam.GetRegionVisibleX() / 2+6000);
+         charlie.setX(cam.GetRegionVisibleX() / 2);
+//        charlie.setX(6400);
         charlie.setY(monoActual.getY()-20);
         charlie.setPOSICION_Y_PISO((int) monoActual.getY()-20);
         charlie.setColision(new Rectangle((int) charlie.getX(), (int) charlie.getY(), charlie.getWidth(), charlie.getHeight()));
@@ -134,7 +135,7 @@ public class Nivel2 extends Nivel {
             tiempoColision++;
             if(tiempoColision == 1){}
             else{
-                while(tiempoColision < 10){
+                while(tiempoColision < 5){
                     tiempoColision++;
                 }
                 reiniciarse();
@@ -143,15 +144,20 @@ public class Nivel2 extends Nivel {
             monoSiguiente.moverse(0);
             charlie.animacionMuerte();
             tiempoColision++;
-            if(tiempoColision > 3)
+            if(tiempoColision == 1){}
+            else{
+                while(tiempoColision < 5){
+                    tiempoColision++;
+                }
                 reiniciarse();
+            }
         }else if((monoAuxiliar.getColision().intersects(charlie.getColision()))) {
             monoAuxiliar.moverse(0);
             charlie.animacionMuerte();
             tiempoColision++;
             if(tiempoColision == 1){}
             else{
-                while(tiempoColision < 10){
+                while(tiempoColision < 5){
                     tiempoColision++;
                 }
                 reiniciarse();
@@ -162,7 +168,7 @@ public class Nivel2 extends Nivel {
             tiempoColision++;
             if(tiempoColision == 1){}
             else{
-                while(tiempoColision < 10){
+                while(tiempoColision < 5){
                     tiempoColision++;
                 }
                 reiniciarse();
@@ -176,10 +182,10 @@ public class Nivel2 extends Nivel {
 
         this.animacionBonus();
 
-//        monoSiguiente.animacion();
-//        monoActual.animacion();
-//        monoAuxiliar.animacion();
-//        monoAzul.animacion();
+        monoSiguiente.animacion();
+        monoActual.animacion();
+        monoAuxiliar.animacion();
+        monoAzul.animacion();
 
         if(monoAzul.getColision().intersects(monoSiguiente.getColision()) || monoAzul.getColision().intersects(monoAuxiliar.getColision()) || monoAzul.getColision().intersects(monoActual.getColision())) {
             monoAzul.saltar();
@@ -196,16 +202,15 @@ public class Nivel2 extends Nivel {
         charlie.setColision(new Rectangle(new Rectangle((int) charlie.getX(),(int) charlie.getY(), charlie.getWidth(), charlie.getHeight())));
 
         if((monos[0].getX() + monos[0].getWidth()) < -cam.getX()) {
-            monos[0].setX(cam.GetRegionVisibleX()/0.25+ -cam.getX());
+            monos[0].setX(+1000+ -cam.getX()+cam.GetRegionVisibleX());
         } else if((monos[1].getX() + monos[1].getWidth()) < -cam.getX()){
-            monos[1].setX(cam.GetRegionVisibleX()/0.5+ -cam.getX());
+            monos[1].setX(1500+ -cam.getX()+cam.GetRegionVisibleX());
         }
         else if((monos[2].getX() + monos[2].getWidth()) < -cam.getX()) {
-            monos[2].setX(cam.GetRegionVisibleX()/0.75+ -cam.getX());
+            monos[2].setX(2000+ -cam.getX()+cam.GetRegionVisibleX());
         } else if((monoAzul.getX() + monoAzul.getWidth()) < -cam.getX()) {
             monoAzul.setX(cam.GetRegionVisibleX()*2.5+-cam.getX());
         }
-
 
     };
 }
