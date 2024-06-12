@@ -6,11 +6,8 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class MonoAzul extends Obstaculo {
-    final int DIRECCION_DERECHA = 0;
-    final int DIRECCION_IZQUIERDA = 1;
+public class MonoAzul extends Mono {
 
-    private double desplazamiento;
 
     private boolean onGround = false;
     private int POSICION_Y_PISO=270;
@@ -19,13 +16,12 @@ public class MonoAzul extends Obstaculo {
     protected String movimiento1 = new String("imagenes/AzulMono2.gif");
     protected String movimiento2 = new String("imagenes/AzulMono3.gif");
     protected String movimiento3 = new String("imagenes/AzulMono4.gif");
-    double contador=0;
     // Variable para controlar la altura máxima del salto
-    int alturaSalto = 0;
-    final double maxAlturaSalto = 25;
+    private int alturaSalto = 0;
+    private final double maxAlturaSalto = 25;
 
-    MonoAzul(String movimiento3) {
-        super(movimiento3);
+    MonoAzul(String Sprite) {
+        super(Sprite);
         desplazamiento = 3;
         this.moverse(1);
     };

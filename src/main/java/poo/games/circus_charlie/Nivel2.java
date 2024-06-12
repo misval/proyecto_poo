@@ -68,7 +68,7 @@ public class Nivel2 extends Nivel {
 
         charlie = new Personaje("imagenes/CharlieMuriendo.png");
 
-         charlie.setX(cam.GetRegionVisibleX() / 2);
+         charlie.setX(cam.GetRegionVisibleX() / 2+6000);
 //        charlie.setX(6400);
         charlie.setY(monoActual.getY()-20);
         charlie.setPOSICION_Y_PISO((int) monoActual.getY()-20);
@@ -120,7 +120,7 @@ public class Nivel2 extends Nivel {
             }
 
             if(monoAzul.getX() >= charlie.getX()-2  && monoAzul.getX() <= charlie.getX()+2) {
-                setPuntosTotales(200);
+                setPuntosTotales(500);
             }
         }
         if(monoActual.getColision().intersects(monoSiguiente.getColision()) || colsionMono) {
@@ -132,24 +132,33 @@ public class Nivel2 extends Nivel {
         }
         else if((monoActual.getColision().intersects(charlie.getColision()))) {
             charlie.animacionMuerte();
+            monoActual.moverse(0);
             tiempoColision++;
             if(tiempoColision > 3)
                 reiniciarse();
         }else if((monoSiguiente.getColision().intersects(charlie.getColision()))) {
+            monoSiguiente.moverse(0);
             charlie.animacionMuerte();
             tiempoColision++;
             if(tiempoColision > 3)
                 reiniciarse();
         }else if((monoAuxiliar.getColision().intersects(charlie.getColision()))) {
+            monoAuxiliar.moverse(0);
             charlie.animacionMuerte();
             tiempoColision++;
             if(tiempoColision > 3)
                 reiniciarse();
         }else if((monoAzul.getColision().intersects(charlie.getColision()))) {
+            monoAzul.moverse(0);
             charlie.animacionMuerte();
             tiempoColision++;
             if(tiempoColision > 3)
                 reiniciarse();
+        }else{
+            monoActual.moverse(1);
+            monoSiguiente.moverse(1);
+            monoAuxiliar.moverse(1);
+            monoAzul.moverse(1);
         }
 
         this.animacionBonus();
@@ -165,10 +174,7 @@ public class Nivel2 extends Nivel {
 
         monoAzul.mover();
 
-        monoActual.moverse(1);
-        monoSiguiente.moverse(1);
-        monoAuxiliar.moverse(1);
-        monoAzul.moverse(1);
+
 
         monoActual.setColision(new Rectangle((int) monoActual.getX(), (int) monoActual.getY(), monoActual.getWidth(), monoActual.getHeight()));
         monoSiguiente.setColision(new Rectangle((int) monoSiguiente.getX(), (int) monoSiguiente.getY(), monoSiguiente.getWidth(), monoSiguiente.getHeight()));
@@ -186,5 +192,7 @@ public class Nivel2 extends Nivel {
         } else if((monoAzul.getX() + monoAzul.getWidth()) < -cam.getX()) {
             monoAzul.setX(cam.GetRegionVisibleX()*2.5+-cam.getX());
         }
+
+
     };
 }

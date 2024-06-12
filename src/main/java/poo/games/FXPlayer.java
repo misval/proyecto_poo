@@ -33,13 +33,9 @@ public enum FXPlayer{
 
    FXPlayer(String wav) {
       try {
-
          URL url = this.getClass().getClassLoader().getResource("sonidos/"+wav);
-
          AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(url);
-
          clip = AudioSystem.getClip();
-
          clip.open(audioInputStream);
       } catch (UnsupportedAudioFileException e) {
          e.printStackTrace();

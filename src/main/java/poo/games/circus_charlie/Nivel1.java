@@ -48,7 +48,7 @@ public class Nivel1 extends Nivel {
         leon.setX(120);
         leon.setY(355);
 
-        charlie.setX(leon.getX() - leon.getWidth()/3);
+        charlie.setX(leon.getX() - leon.getWidth()/3+6000);
 //        charlie.setX(6400);
         charlie.setY(leon.getY() - leon.getHeight());
         charlie.setPOSICION_Y_PISO((int)leon.getY()-leon.getHeight());

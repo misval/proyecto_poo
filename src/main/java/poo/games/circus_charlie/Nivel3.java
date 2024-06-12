@@ -45,7 +45,7 @@ public class Nivel3 extends Nivel {
         pelotaAuxiliar = pelotas[2];
 
         charlie = new Personaje("imagenes/ImagenCharlieEstatica.png");
-        charlie.setX(pelotaActual.getX() + (pelotaActual.getWidth() / 2.0));
+        charlie.setX(pelotaActual.getX() + (pelotaActual.getWidth() / 2.0)+6000);
         charlie.setY(pelotaActual.getY() - pelotaActual.getHeight() + 18);
         charlie.setPOSICION_Y_PISO( (int) pelotaActual.getY() - pelotaActual.getHeight() + 18);
         charlie.setColision(new Rectangle((int) charlie.getX(),(int) charlie.getY(), charlie.getWidth(), charlie.getHeight()));
