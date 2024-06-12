@@ -1,9 +1,6 @@
 package poo.games.circus_charlie;
 
-import poo.games.Camara;
-import poo.games.Fondo;
-import poo.games.Mundo;
-import poo.games.Personaje;
+import poo.games.*;
 
 import java.awt.*;
 
@@ -21,11 +18,11 @@ public class Nivel3 extends Nivel {
         this.setPuntosTotales(puntosTotales);
         this.reiniciarBonus();
         this.iniciarse();
+        FXPlayer.NivelSoundTrack3.loop();
     }
 
     public void iniciarse() {
         Mundo m = Mundo.getInstance();
-
         for(int i = 0; i < pelotas.length; i++) {
             pelotas[i] = new Pelota("imagenes/pelotaCharlie2.jpg");
             pelotas[i].setY(339);

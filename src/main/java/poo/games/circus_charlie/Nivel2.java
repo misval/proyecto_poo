@@ -1,10 +1,8 @@
 package poo.games.circus_charlie;
 
 import java.awt.*;
-import poo.games.Camara;
-import poo.games.Fondo;
-import poo.games.Mundo;
-import poo.games.Personaje;
+
+import poo.games.*;
 
 public class Nivel2 extends Nivel {
     private Mono[] monos = new Mono[10];
@@ -19,6 +17,7 @@ public class Nivel2 extends Nivel {
         setVidas(vidasJugador);
         setPuntosTotales(puntosTotales);
         reiniciarBonus();
+        FXPlayer.NivelSoundtrack2.loop();
     }
 
     public void reiniciarse() {
@@ -30,7 +29,7 @@ public class Nivel2 extends Nivel {
 
     public void iniciarse() {
         Mundo m = Mundo.getInstance();
-
+        FXPlayer.NivelSoundtrack2.loop();
         cam = new Camara(0, 0);
         cam.setRegionVisible(640, 480);
 

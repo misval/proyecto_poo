@@ -41,6 +41,7 @@ public class Pong extends JGame{
 
     public Pong(){
         super("Pong", 800, 600);
+
     };
 
     public void gameStartup(){
@@ -99,7 +100,7 @@ public class Pong extends JGame{
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
+            //DesComentar para que reproduzca
             if(!musica) {
                 FXPlayer.SOUND_TRACK.SwitchingLoop();
                 FXPlayer.GANE.SwitchingMUTE();
@@ -217,18 +218,19 @@ public class Pong extends JGame{
                 FXPlayer.REVOTA.SwitchingMUTE();
                 FXPlayer.START.SwitchingMUTE();
             }
-
             if ((event.getID() == KeyEvent.KEY_PRESSED) &&
                     (event.getKeyCode() == KeyEvent.VK_ESCAPE)) {
                 stop();
             }
-        }
+
 
         fondo.update(delta);
         jIzquierda.update(delta);
         jDerecha.update(delta);
         pelota.update(delta);
     };
+    }
+
 
     public void gameDraw(Graphics2D g){
         g.drawImage(fondo.getFondo(),0,0,null);
