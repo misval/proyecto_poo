@@ -53,11 +53,11 @@ int cont = 0;
             }
             if(!musica) {
                 if (nivelActual == 0) {
-                    FXPlayer.NivelSoundtrack1.SwitchingLoop();
+                    FXPlayer.NivelSoundtrack1.stop();
                 } else if (nivelActual == 1) {
-                    FXPlayer.NivelSoundtrack2.SwitchingLoop();
+                    FXPlayer.NivelSoundtrack2.stop();
                 }else if (nivelActual == 2) {
-                    FXPlayer.NivelSoundTrack3.SwitchingLoop();
+                    FXPlayer.NivelSoundTrack3.stop();
                     nivelActual = 0;
                 }
                 FXPlayer.NivelSalto2.SwitchingMUTE();
