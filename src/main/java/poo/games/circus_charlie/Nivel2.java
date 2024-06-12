@@ -67,8 +67,7 @@ public class Nivel2 extends Nivel {
 
         charlie = new Personaje("imagenes/CharlieMuriendo.png");
 
-         charlie.setX(cam.GetRegionVisibleX() / 2+6000);
-//        charlie.setX(6400);
+        charlie.setX(cam.GetRegionVisibleX() / 2+6000);
         charlie.setY(monoActual.getY()-20);
         charlie.setPOSICION_Y_PISO((int) monoActual.getY()-20);
         charlie.setColision(new Rectangle((int) charlie.getX(), (int) charlie.getY(), charlie.getWidth(), charlie.getHeight()));
@@ -133,8 +132,13 @@ public class Nivel2 extends Nivel {
             charlie.animacionMuerte();
             monoActual.moverse(0);
             tiempoColision++;
-            if(tiempoColision > 3)
+            if(tiempoColision == 1){}
+            else{
+                while(tiempoColision < 10){
+                    tiempoColision++;
+                }
                 reiniciarse();
+            }
         }else if((monoSiguiente.getColision().intersects(charlie.getColision()))) {
             monoSiguiente.moverse(0);
             charlie.animacionMuerte();
@@ -145,14 +149,24 @@ public class Nivel2 extends Nivel {
             monoAuxiliar.moverse(0);
             charlie.animacionMuerte();
             tiempoColision++;
-            if(tiempoColision > 3)
+            if(tiempoColision == 1){}
+            else{
+                while(tiempoColision < 10){
+                    tiempoColision++;
+                }
                 reiniciarse();
+            }
         }else if((monoAzul.getColision().intersects(charlie.getColision()))) {
             monoAzul.moverse(0);
             charlie.animacionMuerte();
             tiempoColision++;
-            if(tiempoColision > 3)
+            if(tiempoColision == 1){}
+            else{
+                while(tiempoColision < 10){
+                    tiempoColision++;
+                }
                 reiniciarse();
+            }
         }else{
             monoActual.moverse(1);
             monoSiguiente.moverse(1);

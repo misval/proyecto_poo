@@ -19,21 +19,45 @@ import java.util.*;
 public class CircusCharlie extends JGame {
     private Personaje heroe;
     private Nivel nivel;
-    private Integer nivelActual = 1;
+    private Integer nivelActual = 0;
     private Jugador jugadorActual;
     private Integer vidasJugador = 3;
     private Integer puntosTotales = 0;
     private Boolean entroGameShutdown = false;
     private Integer flag = 0;
     boolean musica;
-int cont = 0;
+
     public CircusCharlie(Jugador jugadorActual) {
         super("CircusCharlie", 800, 480);
+
+        try {
+            // Crear un lector para el archivo de entrada
+            BufferedReader configuracionFile = new BufferedReader(new FileReader("src/main/resources/files/configuracion.txt"));
+            String linea = configuracionFile.readLine();
+
+            if(linea.equals("false")) {
+                setMusica(false);
+            }
+            //Comentar para que reproduzca
+            if(!musica) {
+                if (nivelActual == 0) {
+                    FXPlayer.NivelSoundtrack1.stop();
+                } else if (nivelActual == 1) {
+                    FXPlayer.NivelSoundtrack2.stop();
+                }else if (nivelActual == 2) {
+                    FXPlayer.NivelSoundTrack3.stop();
+                    nivelActual = 0;
+                }
+                FXPlayer.NivelSalto2.SwitchingMUTE();
+            }
+            configuracionFile.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         setJugadorActual(jugadorActual);
         this.gameStartup();
     }
-
-    ;
 
     public void gameStartup() {
         if (nivelActual == 0) {
@@ -58,7 +82,7 @@ int cont = 0;
                     FXPlayer.NivelSoundtrack2.stop();
                 }else if (nivelActual == 2) {
                     FXPlayer.NivelSoundTrack3.stop();
-                    nivelActual = 0;
+                    nivelActual = -1;
                 }
                 FXPlayer.NivelSalto2.SwitchingMUTE();
             }
@@ -66,7 +90,6 @@ int cont = 0;
         } catch (IOException e) {
             e.printStackTrace();
         }
-        //DesComentar para que reproduzca
 
     }
 
@@ -112,7 +135,7 @@ int cont = 0;
                         FXPlayer.NivelSalto2.play();
                     }else if (nivelActual == 2) {
                         FXPlayer.NivelSalto2.play();
-                        nivelActual = 0;
+                        nivelActual = -1;
                     }
                     heroe.jump();
                 }
@@ -132,7 +155,7 @@ int cont = 0;
                         FXPlayer.NivelSoundtrack2.SwitchingLoop();
                     }else if (nivelActual == 2) {
                         FXPlayer.NivelSoundTrack3.SwitchingLoop();
-                        nivelActual = 0;
+                        nivelActual = -1;
                     }
                 }
 
@@ -184,7 +207,6 @@ int cont = 0;
     ;
 
     public void ganar() {
-
             if (nivelActual == 0) {
                 FXPlayer.NivelSoundtrack1.stop();
             } else if (nivelActual == 1) {
@@ -192,7 +214,7 @@ int cont = 0;
             }
             if (nivelActual == 2) {
                 FXPlayer.NivelSoundTrack3.stop();
-                nivelActual = 0;
+                nivelActual = -1;
             }
             nivelActual++;
 

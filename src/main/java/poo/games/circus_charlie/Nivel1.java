@@ -67,11 +67,9 @@ public class Nivel1 extends Nivel {
         leon = new Leon("imagenes/LeonQuieto.png");
 
         leon.setX(120);
-        //leon.setX(6000);
         leon.setY(355);
 
         charlie.setX(leon.getX() - leon.getWidth()/3);
-//      charlie.setX(6400);
         charlie.setY(leon.getY() - leon.getHeight());
         charlie.setPOSICION_Y_PISO((int)leon.getY()-leon.getHeight());
         charlie.quieto();
@@ -123,9 +121,6 @@ public class Nivel1 extends Nivel {
         aros[0].display2(g);
         aros[1].display2(g);
         aros[2].display2(g);
-
-        g.draw(charlie.getColision());
-        g.draw(bolsaBonus.getColision());
 
         g.translate(-cam.getX(), -cam.getY());
     };
@@ -199,7 +194,7 @@ public class Nivel1 extends Nivel {
             tiempoColision++;
             if(tiempoColision == 1){}
             else{
-                while(tiempoColision < 25){
+                while(tiempoColision < 10){
                     tiempoColision++;
                 }
                 reiniciarse();
@@ -212,7 +207,7 @@ public class Nivel1 extends Nivel {
             tiempoColision++;
             if(tiempoColision == 1){}
             else{
-                while(tiempoColision < 25){
+                while(tiempoColision < 10){
                     tiempoColision++;
                 }
                 reiniciarse();
@@ -225,7 +220,7 @@ public class Nivel1 extends Nivel {
             tiempoColision++;
             if(tiempoColision == 1){}
             else{
-                while(tiempoColision < 25){
+                while(tiempoColision < 10){
                     tiempoColision++;
                 }
                 reiniciarse();
@@ -239,7 +234,7 @@ public class Nivel1 extends Nivel {
             tiempoColision++;
             if(tiempoColision == 1){}
             else{
-                while(tiempoColision < 25){
+                while(tiempoColision < 10){
                     tiempoColision++;
                 }
                 reiniciarse();
@@ -251,7 +246,7 @@ public class Nivel1 extends Nivel {
             tiempoColision++;
             if(tiempoColision == 1){}
             else{
-                while(tiempoColision < 25){
+                while(tiempoColision < 10){
                     tiempoColision++;
                 }
                 reiniciarse();
@@ -263,7 +258,7 @@ public class Nivel1 extends Nivel {
             tiempoColision++;
             if(tiempoColision == 1){}
             else{
-                while(tiempoColision < 25){
+                while(tiempoColision < 10){
                     tiempoColision++;
                 }
                 reiniciarse();
@@ -274,7 +269,7 @@ public class Nivel1 extends Nivel {
         //colision con bolsaBonus
         if(bolsaBonus.getColision().intersects(charlie.getColision())){
             setPuntosTotales(500);
-            bolsaBonus.setX(-50);
+            bolsaBonus.setX(cam.GetRegionVisibleX()*2.5+-cam.getX());
             bolsaAgarrado = true;
         }
 
