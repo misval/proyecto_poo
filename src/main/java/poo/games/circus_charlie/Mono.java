@@ -29,8 +29,6 @@ public class Mono extends Obstaculo{
     }
     public void animacion() {
         contador++;
-
-        System.out.println(contador);
         if(contador <= 20){
             setSprite(movimiento1);
         }else if(contador <= 40 && contador > 20){

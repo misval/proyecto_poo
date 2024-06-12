@@ -182,10 +182,10 @@ public class Nivel2 extends Nivel {
 
         this.animacionBonus();
 
-        monoSiguiente.animacion();
-        monoActual.animacion();
-        monoAuxiliar.animacion();
-        monoAzul.animacion();
+        //monoSiguiente.animacion();
+        //monoActual.animacion();
+        //monoAuxiliar.animacion();
+        //monoAzul.animacion();
 
         if(monoAzul.getColision().intersects(monoSiguiente.getColision()) || monoAzul.getColision().intersects(monoAuxiliar.getColision()) || monoAzul.getColision().intersects(monoActual.getColision())) {
             monoAzul.saltar();
