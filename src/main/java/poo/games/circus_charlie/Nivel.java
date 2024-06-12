@@ -13,6 +13,7 @@ public abstract class Nivel {
     protected Integer bonus;
     protected Integer puntosTotales = 0 ;
     private double contador;
+    private int banderaBonus = 10000;
 
     public Camara getCam() {
         return cam;
@@ -41,6 +42,10 @@ public abstract class Nivel {
 //  para que cada nivel pueda ir actualizando los puntos por cada interaccion
     public void setPuntosTotales(Integer puntosTotales) {
         this.puntosTotales += puntosTotales;
+        if(getPuntosTotales() / banderaBonus > 0) {
+            setVidas(getVidas()+1);
+            banderaBonus += 10000;
+        }
     }
 
 //  para actualizar las vidas por si pierde y restarle
@@ -59,7 +64,6 @@ public abstract class Nivel {
 //  para que el bonus vaya descontandose de a poco
     public void animacionBonus() {
         contador++;
-
         if(contador % 7 == 1) {
             bonus--;
         } else contador = 0;

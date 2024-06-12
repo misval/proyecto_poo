@@ -5,17 +5,17 @@ import java.awt.*;
 
 public class Mono extends Obstaculo{
 
-    final int DIRECCION_DERECHA = 0;
-    final int DIRECCION_IZQUIERDA = 1;
+    protected final int DIRECCION_DERECHA = 0;
+    protected final int DIRECCION_IZQUIERDA = 1;
 
-    private double desplazamiento;
-    double contador=0;
+    protected double desplazamiento;
+    protected double contador=0;
     protected String salto = new String("imagenes/SaltoMarron.gif");
     protected String movimiento1 = new String("imagenes/MarronCamina1.gif");
     protected String movimiento2 = new String("imagenes/MarronCamina2.gif");
 
     Mono(String sprite) {
-        super(sprite);
+        super("imagenes/MarronCamina1.gif");
         desplazamiento = 1.0;
     };
 
